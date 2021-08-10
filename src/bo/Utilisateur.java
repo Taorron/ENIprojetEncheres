@@ -163,5 +163,6 @@ public class Utilisateur {
 	{
 		this.enchere.remove(enchere);
 	}
+	
     
 }

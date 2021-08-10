@@ -13,6 +13,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="E:/Bureau/Cours ENI/Java JEE/Ressources/mssql-jdbc-8.4.1.jre8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ben/Desktop/Nouveau dossier/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ben/Desktop/Nouveau dossier/mssql-jdbc-8.4.1.jre8.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
