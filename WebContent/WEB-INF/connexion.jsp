@@ -9,11 +9,13 @@
 </head>
 <body>
 <div>ENI-Encheres</div>
-<div>Identifiant : </div>
-<input class="form-control" type="text">
-<div>Mot de passe : </div>
-<input class="form-control" type="text">
-<button class="btn btn-primary">Connexion</button>
+<form action="#" method="post">
+	<div>Identifiant : </div>
+	<input class="form-control" type="text" name="identifiant">
+	<div>Mot de passe : </div>
+	<input class="form-control" type="text" name="mdp">
+	<button class="btn btn-primary">Connexion</button>
+</form>
 <input type="checkbox">
 <div>Se souvenir de moi</div>
 <a href="#">Mot de passe oublié</a>
