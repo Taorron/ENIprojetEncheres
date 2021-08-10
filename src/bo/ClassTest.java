@@ -13,64 +13,39 @@ import dal.EnchereDAO;
 
 public class ClassTest {
 
-	private static String SQL_SELECT_ALL = "SELECT * FROM UTILISATEURS";
-	
-	private static String SQL_SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
-	
+	public static EnchereDAO dao = new EnchereDAO();
 
 	public static void main (String[] args) throws Exception {
 		
+		//Test stringBuilder
 		StringBuilder testSb = new StringBuilder("bla");
 		testSb.append("b");
 		System.out.println(testSb.toString());
 		
-		EnchereDAO dao = new EnchereDAO();
-//		
+		
+		//Test DAO SelectUtilisateur
 //		List<Utilisateur> test1 = dao.selectUtilisateur(1, "", null, null, null, null, null, null, null, 0, null);
 //		for (Utilisateur utilisateur : test1) {
 //			System.out.println(utilisateur.getNoUtilisateur());
 //		}
 		
+		//Test DAO InsertUtilisateur
+//		Utilisateur newUtil = new Utilisateur
+//				(0, "bla", "bli", "blou", "bla@bla.fr", "0123456789", "10 rue du grand dieu", "00001",
+//						"Supreme","mdptropcool", 999, false, new ArrayList<ArticleVendu>(), 
+//				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
+//				
+//		Utilisateur returnUtil = dao.insertUtilisateur(newUtil);
+		
+		//Test updateUtilisateur
 		Utilisateur newUtil = new Utilisateur
-				(0, "bla", "bli", "blou", "bla@bla.fr", "0123456789", "10 rue du grand dieu", "00001",
-						"Supreme","mdptropcool", 999, false, new ArrayList<ArticleVendu>(), 
+				(3, "da", "di", "dou", "bla@bla.fr", "0123456789", "1 rue du petit dieu", "00002",
+						"PetitSupreme","mdptropcool", 9, false, new ArrayList<ArticleVendu>(), 
 				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
 				
-		Utilisateur returnUtil = dao.insertUtilisateur(newUtil);
+		dao.updateUtilisateur(newUtil);;
 		
-		try {
-			test();
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
 	}
-	
-	
-	public static void test() throws DALException{
-		
-		try(Connection connexion = JdbcTools.getConnection(); 
-				PreparedStatement rqt = connexion.prepareStatement(SQL_SELECT_BY_ID);) 
-		{
-
-			rqt.setInt(1, 1);
-			ResultSet rs = rqt.executeQuery();
-			Utilisateur util = null;
-			if (rs.next()) {
-				util = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
-						rs.getString("nom"), rs.getString("prenom"), rs.getString("email"),
-						rs.getString("telephone"),  rs.getString("rue"), rs.getString("code_postal"),
-						rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"),
-						rs.getBoolean("administrateur"), new ArrayList<ArticleVendu>(), new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
-			}
-			
-			System.out.println(util.getNoUtilisateur());
-			
-		} catch (SQLException e) {
-			throw new DALException("erreur dans selectById : " + e.toString());
-		} 
-	}
-	
 	
 	
 }

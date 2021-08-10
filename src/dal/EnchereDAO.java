@@ -15,15 +15,22 @@ import java.util.Map;
 import bo.*;
 
 public class EnchereDAO implements InterfaceEnchereDAO {
-
+	
+	//RequeteSQL
+	private String SELECT_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur is not null ";
 	private String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS "
 			+ "(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private String SELECT_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur is not null ";
-
-
+	private String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS "
+			+ "SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ?, administrateur = ? "
+			+ "WHERE no_utilisateur = ? ";
+	private String DELETE_UTILISATEUR = "DELETE UTILISATEURS WHERE no_utilisateur = ?";
+	
+	
+	//Methode Utilisateur
+	@Override
 	public List<Utilisateur> selectUtilisateur(
-			Integer noUtil, String nom, String prenom, String email,
+			Integer noUtil, String pseudo, String nom, String prenom, String email,
 			String telephone, String rue, String codePostal, String ville, 
 			String MotDePasse, Integer credit, Boolean admin) throws DALException
 	{
@@ -41,7 +48,13 @@ public class EnchereDAO implements InterfaceEnchereDAO {
 			mapping.put(i, noUtil);
 			query.append("AND no_utilisateur = ? ");
 		}
-					
+		
+		if(pseudo != null) {
+			i++;
+			mapping.put(i, pseudo);
+			query.append("AND pseudo = ? ");
+		}
+		
 		if(nom != null) {
 			i++;
 			mapping.put(i, nom);
@@ -136,14 +149,15 @@ public class EnchereDAO implements InterfaceEnchereDAO {
 					new ArrayList<ArticleVendu>(), new ArrayList<Enchere>()));
 			}
 			
-			
+			System.out.println("success selectUtilisateur");
 		} catch (SQLException e) {
 			throw new DALException("erreur dans selectById : " + e.toString());
 		} 
 		
 		return result;
 	}	
-
+	
+	@Override
 	public Utilisateur insertUtilisateur(Utilisateur newUtil) throws Exception {
 		
 		Utilisateur result = newUtil;
@@ -170,6 +184,8 @@ public class EnchereDAO implements InterfaceEnchereDAO {
 				result.setNoUtilisateur(rs.getInt(1));
 			}
 			
+			System.out.println("success insertUtilisateur new id : "+result.getNoUtilisateur());
+			
 		} catch (SQLException e) {
 			cnx.rollback();
 			//propager une exception personnalisée
@@ -178,6 +194,50 @@ public class EnchereDAO implements InterfaceEnchereDAO {
 		return result;
 		
 	}
+
+	@Override
+	public void updateUtilisateur(Utilisateur util) throws DALException {
+		// TODO Auto-generated method stub
+		try(Connection connexion = JdbcTools.getConnection();
+				PreparedStatement prpStmt = connexion.prepareStatement(UPDATE_UTILISATEUR);){
+			
+			prpStmt.setString(1, util.getPseudo());
+			prpStmt.setString(2, util.getNom());
+			prpStmt.setString(3, util.getPrenom());
+			prpStmt.setString(4, util.getEmail());
+			prpStmt.setString(5, util.getTelephone());
+			prpStmt.setString(6, util.getRue());
+			prpStmt.setString(7, util.getCodePostal());
+			prpStmt.setString(8, util.getVille());
+			prpStmt.setString(9, util.getMotDePasse());
+			prpStmt.setInt(10, util.getCredit());
+			prpStmt.setBoolean(11, util.isAdministrateur());
+			prpStmt.setInt(12, util.getNoUtilisateur());
+			
+			prpStmt.executeUpdate();
+			
+			System.out.println("Success updateUtilisateur id : " + util.getNoUtilisateur());
+			
+		} catch (SQLException e) {
+			throw new DALException("erreur update, utilisateur id : " + util.getNoUtilisateur());
+		}		
+	}
+	
+	public void deleteUtilisateur(int noUtil) throws DALException{
+		try(Connection connexion = JdbcTools.getConnection();
+				PreparedStatement prpStmt = connexion.prepareStatement(DELETE_UTILISATEUR);){
+			
+			prpStmt.setInt(1, noUtil);
+			prpStmt.executeUpdate();
+			
+			System.out.println("Success deleteUtilisateur id : " + noUtil);
+		} catch (SQLException e) {
+			throw new DALException("erreur deleteUtilisateur id : " + noUtil);
+		}
+	}
+
+	
+	
 }
 
 
