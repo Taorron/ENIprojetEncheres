@@ -14,7 +14,7 @@ import java.util.Map;
 
 import bo.*;
 
-public class EnchereDAO {
+public class EnchereDAO implements InterfaceEnchereDAO {
 
 	private String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS "
 			+ "(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) "
