@@ -3,7 +3,7 @@
 <properties>
 	<comment>Paramètres de connexion à SQLServer</comment>
 	<entry key="driverdb">com.microsoft.sqlserver.jdbc.SQLServerDriver</entry>
-	<entry key="urldb">jdbc:sqlserver://localhost:1433;DatabaseName=ENCHERES</entry>
+	<entry key="urldb">jdbc:sqlserver://127.0.0.1;databasename=ENCHERES</entry>
 	<entry key="userdb">sa</entry>
 	<entry key="passworddb">0237246304b</entry>
 </properties>
