@@ -1,5 +1,6 @@
 package bo;
 
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 import dal.JdbcTools;
 import dal.DALException;
+import dal.EnchereDAO;
 
 public class ClassTest {
 
@@ -17,6 +19,21 @@ public class ClassTest {
 	
 
 	public static void main (String[] args) throws DALException {
+		
+		StringBuilder testSb = new StringBuilder("bla");
+		testSb.append("b");
+		System.out.println(testSb.toString());
+		
+		
+		
+		EnchereDAO dao = new EnchereDAO();
+		
+		List<Utilisateur> test1 = dao.selectUtilisateur(1, "", null, null, null, null, null, null, null, 0, null);
+		
+		for (Utilisateur utilisateur : test1) {
+			System.out.println(utilisateur.getNoUtilisateur());
+		}
+		
 		try {
 			test();
 		} catch (DALException e) {
