@@ -14,6 +14,7 @@ import bo.ArticleVendu;
 import bo.Enchere;
 import bo.Utilisateur;
 import dal.DALException;
+import dal.EnchereDAO;
 import dal.InterfaceEnchereDAO;
 
 /**
@@ -39,8 +40,8 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String identifiant=request.getParameter("identifiant");
+		EnchereDAO enchereDAO = new EnchereDAO();
 		String mdp = request.getParameter("mdp");
-		InterfaceEnchereDAO interfaceEnchereDAO = InterfaceEnchereDAO;
 		String email=null;
 		String motDePasse=null;
 		String pseudo=null;
@@ -61,15 +62,20 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 			motDePasse=mdp;
 		}
 		try {
-			List<Utilisateur> selectUtilisateur = interfaceEnchereDAO.selectUtilisateur(null, null, null, email, null, null, null, null, mdp, null, null);
+			List<Utilisateur> selectUtilisateur =enchereDAO.selectUtilisateur(null, null, null, null, "Taorron@gmail.com", null, null, null, null, "123456", null, null);
+//			List<Utilisateur> selectUtilisateur = enchereDAO.selectUtilisateur(null, pseudo, null, null, email, null, null, null, null, motDePasse, null, null);
 			Utilisateur utilisateur = selectUtilisateur.get(0);
 			if (utilisateur!=null) 
 			{
+				
 				
 				Utilisateur utilisateur1= new Utilisateur(utilisateur.getNoUtilisateur(), utilisateur.getPseudo(), utilisateur.getNom(), utilisateur.getPrenom(),
 						utilisateur.getEmail(), utilisateur.getTelephone(),	utilisateur.getRue(), utilisateur.getCodePostal(), utilisateur.getVille(), 
 						utilisateur.getMotDePasse(), utilisateur.getCredit(), utilisateur.isAdministrateur(), utilisateur.getArticleVendu(),
 						utilisateur.getArticleAchete(), utilisateur.getEnchere());
+				System.out.println(motDePasse);
+				System.out.println(pseudo);
+				System.out.println(email);
 				
 			}
 			

@@ -9,7 +9,7 @@
 </head>
 <body>
 <div>ENI-Encheres</div>
-<form action="#" method="post">
+<form action="ConnexionUtilisateurServlet" method="post">
 	<div>Identifiant : </div>
 	<input class="form-control" type="text" name="identifiant">
 	<div>Mot de passe : </div>
