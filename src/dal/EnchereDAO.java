@@ -16,7 +16,9 @@ import bo.*;
 
 public class EnchereDAO {
 
-	private String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+	private String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS "
+			+ "(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) "
+			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 	private String SELECT_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur is not null ";
 
 
@@ -39,35 +41,30 @@ public class EnchereDAO {
 			mapping.put(i, noUtil);
 			query.append("AND no_utilisateur = ? ");
 		}
-			
-		
+					
 		if(nom != null) {
 			i++;
 			mapping.put(i, nom);
 			query.append("AND nom = ? ");
 		}
-			
 		
 		if(prenom != null) {
 			i++;
 			mapping.put(i, prenom);
 			query.append("AND prenom = ? ");
-		}
-			
+		}			
 		
 		if(email != null) {
 			i++;
 			mapping.put(i, email);
 			query.append("AND email = ? ");
 		}
-			
-		
+					
 		if(telephone != null) {
 			i++;
 			mapping.put(i, telephone);
 			query.append("AND telephone = ? ");
-		}
-			
+		}			
 		
 		if(rue != null) {
 			i++;
@@ -146,6 +143,41 @@ public class EnchereDAO {
 		
 		return result;
 	}	
+
+	public Utilisateur insertUtilisateur(Utilisateur newUtil) throws Exception {
+		
+		Utilisateur result = newUtil;
+		Connection cnx = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			PreparedStatement rqt = cnx.prepareStatement(INSERT_UTILISATEUR,PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			rqt.setString(1,newUtil.getPseudo());
+			rqt.setString(2,newUtil.getNom());
+			rqt.setString(3,newUtil.getPrenom());
+			rqt.setString(4,newUtil.getEmail());
+			rqt.setString(5,newUtil.getTelephone());
+			rqt.setString(6,newUtil.getRue());
+			rqt.setString(7,newUtil.getCodePostal());
+			rqt.setString(8,newUtil.getVille());
+			rqt.setString(9,newUtil.getMotDePasse());
+			rqt.setInt(10,newUtil.getCredit());
+			rqt.setBoolean(11,newUtil.isAdministrateur());
+			
+			rqt.executeUpdate();
+			ResultSet rs = rqt.getGeneratedKeys();
+			if (rs.next()) {
+				result.setNoUtilisateur(rs.getInt(1));
+			}
+			
+		} catch (SQLException e) {
+			cnx.rollback();
+			//propager une exception personnalisée
+			throw new Exception("Problème d'ajout d'un utilisateur en base. Cause : " + e.getMessage());
+		}
+		return result;
+		
+	}
 }
 
 

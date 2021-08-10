@@ -18,21 +18,25 @@ public class ClassTest {
 	private static String SQL_SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 	
 
-	public static void main (String[] args) throws DALException {
+	public static void main (String[] args) throws Exception {
 		
 		StringBuilder testSb = new StringBuilder("bla");
 		testSb.append("b");
 		System.out.println(testSb.toString());
 		
-		
-		
 		EnchereDAO dao = new EnchereDAO();
+//		
+//		List<Utilisateur> test1 = dao.selectUtilisateur(1, "", null, null, null, null, null, null, null, 0, null);
+//		for (Utilisateur utilisateur : test1) {
+//			System.out.println(utilisateur.getNoUtilisateur());
+//		}
 		
-		List<Utilisateur> test1 = dao.selectUtilisateur(1, "", null, null, null, null, null, null, null, 0, null);
-		
-		for (Utilisateur utilisateur : test1) {
-			System.out.println(utilisateur.getNoUtilisateur());
-		}
+		Utilisateur newUtil = new Utilisateur
+				(0, "bla", "bli", "blou", "bla@bla.fr", "0123456789", "10 rue du grand dieu", "00001",
+						"Supreme","mdptropcool", 999, false, new ArrayList<ArticleVendu>(), 
+				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
+				
+		Utilisateur returnUtil = dao.insertUtilisateur(newUtil);
 		
 		try {
 			test();
