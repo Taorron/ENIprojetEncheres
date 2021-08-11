@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bll.BLLException;
+import bll.UserManager;
 import bo.ArticleVendu;
 import bo.Enchere;
 import bo.Utilisateur;
 import dal.DALException;
-import dal.EnchereDAO;
-import dal.InterfaceEnchereDAO;
+
 
 /**
  * Servlet implementation class ConnexionUtilisateurServlet
@@ -25,8 +26,7 @@ import dal.InterfaceEnchereDAO;
 @WebServlet("/ConnexionUtilisateurServlet")
 public class ConnexionUtilisateurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final InterfaceEnchereDAO InterfaceEnchereDAO = null;
-	EnchereDAO enchereDAO = new EnchereDAO();
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,36 +45,30 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 		String identifiant=request.getParameter("identifiant");
 		
 		String mdp = request.getParameter("mdp");
-		String email=null;
-		String motDePasse=null;
-		String pseudo=null;
-		
-		if (identifiant!=null) 
-		{
-			if (identifiant.contains("@")) 
+	
+	
+		try {
+			
+			UserManager manager = UserManager.getInstance();
+			Utilisateur utilisateur=manager.connect(identifiant, mdp);
+			RequestDispatcher rd=null;
+			if (utilisateur!=null) 
 			{
-				email=identifiant;
+				
+				HttpSession session=request.getSession();
+				
+				session.setAttribute("user", utilisateur);
+				
+				rd = request.getRequestDispatcher("/WEB-INF/premierePageDeCoUtilisateur.jsp");
 			}
 			else
 			{
-				pseudo=identifiant;
+				rd = request.getRequestDispatcher("/WEB-INF/connexion.jsp");
+				
 			}
-		}
-		if (mdp!=null) 
-		{
-			motDePasse=mdp;
-		}
-		try {
-			List<Utilisateur> selectUtilisateur =enchereDAO.selectUtilisateur(null, null, null, null, "Taorron@gmail.com", null, null, null, null, "123456", null, null);
-//			List<Utilisateur> selectUtilisateur = enchereDAO.selectUtilisateur(null, pseudo, null, null, email, null, null, null, null, motDePasse, null, null);
-			Utilisateur utilisateur = selectUtilisateur.get(0);
-			HttpSession session=request.getSession();
-					
-			session.setAttribute("user", utilisateur);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/premierePageDeCoUtilisateur.jsp");
 			rd.forward(request, response);
 			
-		} catch (DALException e) {
+		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
