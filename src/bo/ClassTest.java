@@ -1,6 +1,8 @@
 package bo;
 
 import java.util.List;
+
+import bll.ArticleManager;
 import dal.UserDAO;
 import dal.WithdrawDAO;
 import dal.ArticleDAO;
@@ -65,6 +67,10 @@ public class ClassTest {
 //		for (ArticleVendu articleVendu : listArticle) {
 //			System.out.println(articleVendu.getNoArticle() + " " + articleVendu.getNomArticle());
 //		}
+		
+		//TestSetInfo ArticleManager
+		ArticleManager articleManager = new ArticleManager();
+		List<ArticleVendu> listArticle = articleManager.getArticles();
 		
 	}
 	
