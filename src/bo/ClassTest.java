@@ -2,14 +2,15 @@ package bo;
 
 import java.util.List;
 import dal.UserDAO;
+import dal.WithdrawDAO;
 import dal.CategoryDAO;
 import dal.DAOFactory;
 
 public class ClassTest {
 
 	private static UserDAO dao = DAOFactory.getUserDAO();
-	
 	private static CategoryDAO categoryDao = DAOFactory.getCategoryDAO();
+	private static WithdrawDAO withdrawDao = DAOFactory.getWithdrawDAO();
 
 	public static void main (String[] args) throws Exception {
 		
@@ -42,12 +43,17 @@ public class ClassTest {
 //		dao.update(newUtil1);
 		
 		//TestCategory
-		List<Categorie> listCateg = categoryDao.select(null, null);
+//		List<Categorie> listCateg = categoryDao.select(null, null);
+//		
+//		for(Categorie categ : listCateg) {
+//			System.out.println(categ.getLibelle());
+//		}
 		
-		for(Categorie categ : listCateg) {
-			System.out.println(categ.getLibelle());
+		List<Retrait> listRetrait = withdrawDao.select(null, null, null, null);
+		
+		for(Retrait retrait : listRetrait) {
+			System.out.println(retrait.getRue() + " " + retrait.getVille());
 		}
-		
 		
 	}
 	
