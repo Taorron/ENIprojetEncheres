@@ -31,4 +31,18 @@ public class CategoryManager
 		}
 		return categories;
 	}
+	
+	public Category getCategoryById(Integer no_category) {
+		Category categ = null;
+		try {
+			List<Category> categories = category.select(no_category, null);
+			if(!categories.isEmpty()) {
+				categ = categories.get(0);
+			}
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return categ;
+	}
 }
