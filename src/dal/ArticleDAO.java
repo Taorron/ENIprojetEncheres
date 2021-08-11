@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import bo.ArticleVendu;
-import bo.Categorie;
+import bo.Category;
 import bo.Retrait;
 import bo.Utilisateur;
 

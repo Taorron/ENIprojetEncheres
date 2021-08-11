@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import bo.ArticleVendu;
-import bo.Categorie;
-import bo.Enchere;
+import bo.Category;
 import bo.Retrait;
 import bo.Utilisateur;
 
