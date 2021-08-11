@@ -2,25 +2,28 @@ package bo;
 
 import java.util.List;
 import dal.UserDAO;
+import dal.CategoryDAO;
 import dal.DAOFactory;
 
 public class ClassTest {
 
 	private static UserDAO dao = DAOFactory.getUserDAO();
+	
+	private static CategoryDAO categoryDao = DAOFactory.getCategoryDAO();
 
 	public static void main (String[] args) throws Exception {
 		
 		//Test stringBuilder
-		StringBuilder testSb = new StringBuilder("bla");
-		testSb.append("b");
-		System.out.println(testSb.toString());
+//		StringBuilder testSb = new StringBuilder("bla");
+//		testSb.append("b");
+//		System.out.println(testSb.toString());
 		
 		
 		//Test DAO SelectUtilisateur
-		List<Utilisateur> test1 = dao.select(1, "",null, null, null, null, null, null, null, null, 0, null);
-		for (Utilisateur utilisateur : test1) {
-			System.out.println(utilisateur.getNoUtilisateur());
-		}
+//		List<Utilisateur> test1 = dao.select(1, "",null, null, null, null, null, null, null, null, 0, null);
+//		for (Utilisateur utilisateur : test1) {
+//			System.out.println(utilisateur.getNoUtilisateur());
+//		}
 		
 		//Test DAO InsertUtilisateur
 //		Utilisateur newUtil = new Utilisateur
@@ -37,6 +40,14 @@ public class ClassTest {
 //				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
 //				
 //		dao.update(newUtil1);
+		
+		//TestCategory
+		List<Categorie> listCateg = categoryDao.select(null, null);
+		
+		for(Categorie categ : listCateg) {
+			System.out.println(categ.getLibelle());
+		}
+		
 		
 	}
 	

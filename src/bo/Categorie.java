@@ -7,9 +7,12 @@ public class Categorie
 	private int noCategorie;
 	private String libelle;
 	private ArrayList<ArticleVendu> articleVendu;
-	
-	
-	
+
+	public Categorie(int noCategorie, String libelle) {
+		super();
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+	}
 	
 	public Categorie(int noCategorie, String libelle, ArrayList<ArticleVendu> articleVendu) {
 		super();
