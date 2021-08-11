@@ -49,7 +49,7 @@ public class UserManager {
 		}
 		try {
 			
-			List<Utilisateur> selectUtilisateur =userDao.select(null, pseudo, null, null, email, null, null, null, null, motDePasse, null, null);
+			List<Utilisateur> selectUtilisateur = userDao.select(null, pseudo, null, null, email, null, null, null, null, motDePasse, null, null);
 
 			if (!selectUtilisateur.isEmpty()) 
 			{
@@ -65,5 +65,21 @@ public class UserManager {
 		
 	}
 	
-	
+	public Utilisateur getUserById(Integer no_utilisateur){
+		
+		Utilisateur utilisateur = null;
+		
+		try {
+			List<Utilisateur> selectUtilisateur = userDao.select(no_utilisateur,null, null, null, null, null, null, null, null, null, null, null);
+			if (!selectUtilisateur.isEmpty()) 
+			{
+				utilisateur = selectUtilisateur.get(0);
+			}
+		}catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return utilisateur;
+	}
 }
