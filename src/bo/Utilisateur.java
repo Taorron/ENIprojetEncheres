@@ -15,9 +15,9 @@ public class Utilisateur {
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;
-	private ArrayList<ArticleVendu> articleVendu;
-	private ArrayList<ArticleVendu> articleAchete;
-	private ArrayList<Enchere> enchere;
+	private ArrayList<ArticleVendu> articleVendu = new ArrayList<ArticleVendu>();
+	private ArrayList<ArticleVendu> articleAchete = new ArrayList<ArticleVendu>();
+	private ArrayList<Enchere> enchere = new ArrayList<Enchere>();
     
     
     
