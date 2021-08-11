@@ -1,19 +1,12 @@
 package bo;
 
 import java.util.List;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import dal.JdbcTools;
-import dal.DALException;
-import dal.EnchereDAO;
+import dal.UserDAO;
+import dal.DAOFactory;
 
 public class ClassTest {
 
-	public static EnchereDAO dao = new EnchereDAO();
+	private static UserDAO dao = DAOFactory.getUserDAO();
 
 	public static void main (String[] args) throws Exception {
 		
@@ -24,10 +17,10 @@ public class ClassTest {
 		
 		
 		//Test DAO SelectUtilisateur
-//		List<Utilisateur> test1 = dao.selectUtilisateur(1, "", null, null, null, null, null, null, null, 0, null);
-//		for (Utilisateur utilisateur : test1) {
-//			System.out.println(utilisateur.getNoUtilisateur());
-//		}
+		List<Utilisateur> test1 = dao.select(1, "",null, null, null, null, null, null, null, null, 0, null);
+		for (Utilisateur utilisateur : test1) {
+			System.out.println(utilisateur.getNoUtilisateur());
+		}
 		
 		//Test DAO InsertUtilisateur
 //		Utilisateur newUtil = new Utilisateur
@@ -35,15 +28,15 @@ public class ClassTest {
 //						"Supreme","mdptropcool", 999, false, new ArrayList<ArticleVendu>(), 
 //				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
 //				
-//		Utilisateur returnUtil = dao.insertUtilisateur(newUtil);
+//		Utilisateur returnUtil = dao.insert(newUtil);
 		
 		//Test updateUtilisateur
-		Utilisateur newUtil = new Utilisateur
-				(3, "da", "di", "dou", "bla@bla.fr", "0123456789", "1 rue du petit dieu", "00002",
-						"PetitSupreme","mdptropcool", 9, false, new ArrayList<ArticleVendu>(), 
-				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
-				
-		dao.updateUtilisateur(newUtil);;
+//		Utilisateur newUtil1 = new Utilisateur
+//				(3, "da", "di", "dou", "bla@bla.fr", "0123456789", "1 rue du petit dieu", "00002",
+//						"PetitSupreme","mdptropcool", 9, false, new ArrayList<ArticleVendu>(), 
+//				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
+//				
+//		dao.update(newUtil1);
 		
 	}
 	
