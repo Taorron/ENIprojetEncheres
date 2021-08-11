@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bo.ArticleVendu;
 import bo.Enchere;
@@ -24,6 +26,7 @@ import dal.InterfaceEnchereDAO;
 public class ConnexionUtilisateurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final InterfaceEnchereDAO InterfaceEnchereDAO = null;
+	EnchereDAO enchereDAO = new EnchereDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,7 +43,7 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String identifiant=request.getParameter("identifiant");
-		EnchereDAO enchereDAO = new EnchereDAO();
+		
 		String mdp = request.getParameter("mdp");
 		String email=null;
 		String motDePasse=null;
@@ -65,19 +68,11 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 			List<Utilisateur> selectUtilisateur =enchereDAO.selectUtilisateur(null, null, null, null, "Taorron@gmail.com", null, null, null, null, "123456", null, null);
 //			List<Utilisateur> selectUtilisateur = enchereDAO.selectUtilisateur(null, pseudo, null, null, email, null, null, null, null, motDePasse, null, null);
 			Utilisateur utilisateur = selectUtilisateur.get(0);
-			if (utilisateur!=null) 
-			{
-				
-				
-				Utilisateur utilisateur1= new Utilisateur(utilisateur.getNoUtilisateur(), utilisateur.getPseudo(), utilisateur.getNom(), utilisateur.getPrenom(),
-						utilisateur.getEmail(), utilisateur.getTelephone(),	utilisateur.getRue(), utilisateur.getCodePostal(), utilisateur.getVille(), 
-						utilisateur.getMotDePasse(), utilisateur.getCredit(), utilisateur.isAdministrateur(), utilisateur.getArticleVendu(),
-						utilisateur.getArticleAchete(), utilisateur.getEnchere());
-				System.out.println(motDePasse);
-				System.out.println(pseudo);
-				System.out.println(email);
-				
-			}
+			HttpSession session=request.getSession();
+					
+			session.setAttribute("user", utilisateur);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/premierePageDeCoUtilisateur.jsp");
+			rd.forward(request, response);
 			
 		} catch (DALException e) {
 			// TODO Auto-generated catch block

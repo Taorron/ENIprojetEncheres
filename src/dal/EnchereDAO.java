@@ -145,8 +145,7 @@ public class EnchereDAO implements InterfaceEnchereDAO {
 					rs.getString("nom"), rs.getString("prenom"), rs.getString("email"),
 					rs.getString("telephone"),  rs.getString("rue"), rs.getString("code_postal"),
 					rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"),
-					rs.getBoolean("administrateur"), new ArrayList<ArticleVendu>(), 
-					new ArrayList<ArticleVendu>(), new ArrayList<Enchere>()));
+					rs.getBoolean("administrateur")));
 			}
 			
 			System.out.println("success selectUtilisateur");

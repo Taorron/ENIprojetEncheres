@@ -28,8 +28,12 @@ public class JdbcTools {
 		
 		 Connection connexion = null;
 		try {
+			Class.forName(driverdb);
 			connexion = DriverManager.getConnection(urldb,userdb,passworddb);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

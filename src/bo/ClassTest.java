@@ -24,10 +24,10 @@ public class ClassTest {
 		
 		
 		//Test DAO SelectUtilisateur
-//		List<Utilisateur> test1 = dao.selectUtilisateur(1, "", null, null, null, null, null, null, null, 0, null);
-//		for (Utilisateur utilisateur : test1) {
-//			System.out.println(utilisateur.getNoUtilisateur());
-//		}
+		List<Utilisateur> test1 = dao.selectUtilisateur(null, null, null, null, "Taorron@gmail.com", null, null, null, null, "123456", null, null);
+		for (Utilisateur utilisateur : test1) {
+			System.out.println(utilisateur.getNom());
+		}
 		
 		//Test DAO InsertUtilisateur
 //		Utilisateur newUtil = new Utilisateur
@@ -38,13 +38,13 @@ public class ClassTest {
 //		Utilisateur returnUtil = dao.insertUtilisateur(newUtil);
 		
 		//Test updateUtilisateur
-		Utilisateur newUtil = new Utilisateur
-				(3, "da", "di", "dou", "bla@bla.fr", "0123456789", "1 rue du petit dieu", "00002",
-						"PetitSupreme","mdptropcool", 9, false, new ArrayList<ArticleVendu>(), 
-				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
-				
-		dao.updateUtilisateur(newUtil);;
-		
+//		Utilisateur newUtil = new Utilisateur
+//				(3, "da", "di", "dou", "bla@bla.fr", "0123456789", "1 rue du petit dieu", "00002",
+//						"PetitSupreme","mdptropcool", 9, false, new ArrayList<ArticleVendu>(), 
+//				new ArrayList<ArticleVendu>(), new ArrayList<Enchere>());
+//				
+//		dao.updateUtilisateur(newUtil);;
+//		
 	}
 	
 	
