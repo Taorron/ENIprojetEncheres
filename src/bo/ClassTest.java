@@ -3,6 +3,7 @@ package bo;
 import java.util.List;
 import dal.UserDAO;
 import dal.WithdrawDAO;
+import dal.ArticleDAO;
 import dal.CategoryDAO;
 import dal.DAOFactory;
 
@@ -11,7 +12,8 @@ public class ClassTest {
 	private static UserDAO dao = DAOFactory.getUserDAO();
 	private static CategoryDAO categoryDao = DAOFactory.getCategoryDAO();
 	private static WithdrawDAO withdrawDao = DAOFactory.getWithdrawDAO();
-
+	private static ArticleDAO articleDao = DAOFactory.getArticleDAO();
+	
 	public static void main (String[] args) throws Exception {
 		
 		//Test stringBuilder
@@ -49,11 +51,20 @@ public class ClassTest {
 //			System.out.println(categ.getLibelle());
 //		}
 		
-		List<Retrait> listRetrait = withdrawDao.select(null, null, null, null);
+		//TestListRetrait
+//		List<Retrait> listRetrait = withdrawDao.select(null, null, null, null);
+//		
+//		for(Retrait retrait : listRetrait) {
+//			System.out.println(retrait.getRue() + " " + retrait.getVille());
+//		}
 		
-		for(Retrait retrait : listRetrait) {
-			System.out.println(retrait.getRue() + " " + retrait.getVille());
-		}
+		//TestListArticle
+//		List<ArticleVendu> listArticle = articleDao.select(null, null, null,
+//				null, null, null, null, null, null);
+//		
+//		for (ArticleVendu articleVendu : listArticle) {
+//			System.out.println(articleVendu.getNoArticle() + " " + articleVendu.getNomArticle());
+//		}
 		
 	}
 	
