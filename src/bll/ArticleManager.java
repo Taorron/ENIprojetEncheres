@@ -24,7 +24,7 @@ public class ArticleManager {
 		UserManager userManager = new UserManager();
 		for (ArticleVendu articleVendu : articles) {
 			//TODO : Set Category, Retrait, Acheteur si il existe
-			articleVendu.setVendeur(userManager.getUtilisateurById(articleVendu.getVendeur().getNoUtilisateur()));
+			articleVendu.setVendeur(userManager.getUserById(articleVendu.getVendeur().getNoUtilisateur()));
 		}
 	}
 }
