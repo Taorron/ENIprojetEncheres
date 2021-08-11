@@ -17,8 +17,36 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%-- <c:out value="<%=sessionScope.%>"></c:out> --%>
-<div>${sessionScope.user.getNom()}</div>
+	<div>ENI-Encheres</div>
+	<a href="#">Enchères</a>
+	<a href="#">Vendre un article</a>
+	<a href="#">Mon profil</a>
+	<a href="#">Déconnexion</a>
+
+	<div>Liste des enchères</div>
+	<div>Filtres : </div>
+	<input class="form-control" type="text" placeholder="Le nom de l'article contient">
+	<div>Catégorie : </div>
+	<select name="pets" id="pet-select">
+	    <option value="">--Please choose an option--</option>
+	    <option value="dog">Dog</option>
+	    <option value="cat">Cat</option>
+	    <option value="hamster">Hamster</option>
+	    <option value="parrot">Parrot</option>
+	    <option value="spider">Spider</option>
+	    <option value="goldfish">Goldfish</option>
+	</select>
+	<input class="btn btn-primary" type="button" value="Rechercher">
+	
+	<input type="radio"><label>Achats</label>
+	<input type="checkbox"><label> enchères ouvertes</label>
+	<input type="checkbox"><label>mes enchères en cours</label>
+	<input type="checkbox"><label>mes enchères remportées</label>
+	
+	<input type="radio"><label>Mes ventes</label>
+	<input type="checkbox"><label>mes ventes en cours</label>
+	<input type="checkbox"><label>ventes non débutées</label>
+	<input type="checkbox"><label>ventes terminées</label>
 
 </body>
 </html>
