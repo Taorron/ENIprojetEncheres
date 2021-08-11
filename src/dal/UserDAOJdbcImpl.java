@@ -140,7 +140,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 				
 				System.out.println("success selectUtilisateur");
 			} catch (SQLException e) {
-				throw new DALException("erreur dans selectById : " + e.toString());
+				throw new DALException("erreur dans select utilisateur : " + e.toString());
 			} 
 			
 			return result;
