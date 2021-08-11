@@ -2,19 +2,19 @@ package bo;
 
 import java.util.ArrayList;
 
-public class Categorie 
+public class Category 
 {
 	private int noCategorie;
 	private String libelle;
 	private ArrayList<ArticleVendu> articleVendu;
 
-	public Categorie(int noCategorie, String libelle) {
+	public Category(int noCategorie, String libelle) {
 		super();
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
 	}
 	
-	public Categorie(int noCategorie, String libelle, ArrayList<ArticleVendu> articleVendu) {
+	public Category(int noCategorie, String libelle, ArrayList<ArticleVendu> articleVendu) {
 		super();
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;

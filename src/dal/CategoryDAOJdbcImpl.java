@@ -9,14 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bo.Categorie;
+import bo.Category;
 
 public class CategoryDAOJdbcImpl implements CategoryDAO {
 
 	@Override
-	public List<Categorie> select(Integer no_categorie, String libelle) throws DALException {
+	public List<Category> select(Integer no_categorie, String libelle) throws DALException {
 		int i = 0;
-		List<Categorie> result = new ArrayList<>();
+		List<Category> result = new ArrayList<>();
 		
 		Map<Integer, Object> mapping = new HashMap<>();
 		
@@ -54,7 +54,7 @@ public class CategoryDAOJdbcImpl implements CategoryDAO {
 			ResultSet rs = rqt.executeQuery();
 			while(rs.next())
 			{
-				result.add(new Categorie(
+				result.add(new Category(
 						rs.getInt("no_categorie"), rs.getString("libelle")
 						));
 			}
@@ -70,13 +70,13 @@ public class CategoryDAOJdbcImpl implements CategoryDAO {
 	}
 
 	@Override
-	public Categorie insert(Categorie categ) throws DALException {
+	public Category insert(Category categ) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(Categorie categ) throws DALException {
+	public void update(Category categ) throws DALException {
 		// TODO Auto-generated method stub
 		
 	}

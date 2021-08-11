@@ -13,7 +13,7 @@ public class ArticleVendu
 	private int miseAPrix;
 	private int prixVente;
 	private String etatVente;
-	private Categorie categorie;
+	private Category categorie;
 	private Retrait retrait;
 	private Utilisateur vendeur;
 	private Utilisateur acheteur;
@@ -24,7 +24,7 @@ public class ArticleVendu
 
 
 	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
-			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Categorie categorie,
+			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Category categorie,
 			Retrait retrait, Utilisateur vendeur, Utilisateur acheteur) {
 		super();
 		this.noArticle = noArticle;
@@ -42,7 +42,7 @@ public class ArticleVendu
 	}
 
 	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
-			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Categorie categorie,
+			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Category categorie,
 			Retrait retrait, Utilisateur vendeur, Utilisateur acheteur, ArrayList<Enchere> enchere) {
 		super();
 		this.noArticle = noArticle;
@@ -92,10 +92,10 @@ public class ArticleVendu
 		this.retrait = retrait;
 	}
 	
-	public Categorie getCategorie() {
+	public Category getCategorie() {
 		return categorie;
 	}
-	public void setCategorie(Categorie categorie) {
+	public void setCategorie(Category categorie) {
 		this.categorie = categorie;
 	}
 	public int getNoArticle() {

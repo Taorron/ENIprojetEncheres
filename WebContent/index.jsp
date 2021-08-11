@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,13 +20,11 @@
 	<input class="btn btn-primary" type="button" value="Rechercher">
 	<div>Catégorie : </div>
 	<select name="pets" id="pet-select">
-	    <option value="">--Please choose an option--</option>
-	    <option value="dog">Dog</option>
-	    <option value="cat">Cat</option>
-	    <option value="hamster">Hamster</option>
-	    <option value="parrot">Parrot</option>
-	    <option value="spider">Spider</option>
-	    <option value="goldfish">Goldfish</option>
+		<c:forEach var="categorie" items="${categories}">
+			<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}</option>
+			
+		</c:forEach>
+	   
 	</select>
 	
 </body>

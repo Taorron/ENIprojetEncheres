@@ -4,8 +4,6 @@ package bll;
 
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpSession;
 
 import bo.Utilisateur;
 import dal.DALException;
