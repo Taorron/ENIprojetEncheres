@@ -1,6 +1,7 @@
 package bo;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ArticleVendu 
 {
@@ -8,8 +9,8 @@ public class ArticleVendu
 	private int noArticle;
 	private String nomArticle;
 	private String description;
-	private String dateDebutEncheres;
-	private String dateFinEncheres;
+	private Date dateDebutEncheres;
+	private Date dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
 	private String etatVente;
@@ -19,12 +20,24 @@ public class ArticleVendu
 	private Utilisateur acheteur;
 	private ArrayList<Enchere> enchere;
 	
-	
 
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int miseAPrix, int prixVente, Categorie categorie,
+			Utilisateur vendeur) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.categorie = categorie;
+		this.vendeur = vendeur;
+	}
 
-
-	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
-			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Categorie categorie,
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Categorie categorie,
 			Retrait retrait, Utilisateur vendeur, Utilisateur acheteur) {
 		super();
 		this.noArticle = noArticle;
@@ -41,8 +54,8 @@ public class ArticleVendu
 		this.acheteur = acheteur;
 	}
 
-	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
-			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Categorie categorie,
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Categorie categorie,
 			Retrait retrait, Utilisateur vendeur, Utilisateur acheteur, ArrayList<Enchere> enchere) {
 		super();
 		this.noArticle = noArticle;
@@ -116,16 +129,16 @@ public class ArticleVendu
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getDateDebutEncheres() {
+	public Date getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
-	public void setDateDebutEncheres(String dateDebutEncheres) {
+	public void setDateDebutEncheres(Date dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
-	public String getDateFinEncheres() {
+	public Date getDateFinEncheres() {
 		return dateFinEncheres;
 	}
-	public void setDateFinEncheres(String dateFinEncheres) {
+	public void setDateFinEncheres(Date dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 	public int getMiseAPrix() {
