@@ -116,7 +116,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 						rs.getDate("date_fin_encheres"),
 						rs.getInt("prix_initial"),
 						rs.getInt("prix_vente"),
-						new Categorie(rs.getInt("no_categorie"),""),
+						new Category(rs.getInt("no_categorie"),""),
 						new Utilisateur(rs.getInt("no_utilisateur"),"","","","","","","","","",0,false)
 						));
 			}
