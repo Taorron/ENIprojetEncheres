@@ -13,7 +13,7 @@ public class ArticleVendu
 	private Date dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private String etatVente;
+	private EtatVente etatVente;
 	private Category categorie;
 	private Retrait retrait;
 	private Utilisateur vendeur;
@@ -34,10 +34,12 @@ public class ArticleVendu
 		this.prixVente = prixVente;
 		this.categorie = categorie;
 		this.vendeur = vendeur;
+		
+		defineEtatVente();
 	}
 
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Category categorie,
+			Date dateFinEncheres, int miseAPrix, int prixVente, Category categorie,
 			Retrait retrait, Utilisateur vendeur, Utilisateur acheteur) {
 		super();
 		this.noArticle = noArticle;
@@ -47,15 +49,16 @@ public class ArticleVendu
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		this.etatVente = etatVente;
 		this.categorie = categorie;
 		this.retrait = retrait;
 		this.vendeur = vendeur;
 		this.acheteur = acheteur;
+		
+		defineEtatVente();
 	}
 
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, Category categorie,
+			Date dateFinEncheres, int miseAPrix, int prixVente, Category categorie,
 			Retrait retrait, Utilisateur vendeur, Utilisateur acheteur, ArrayList<Enchere> enchere) {
 		super();
 		this.noArticle = noArticle;
@@ -65,12 +68,13 @@ public class ArticleVendu
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
-		this.etatVente = etatVente;
 		this.categorie = categorie;
 		this.retrait = retrait;
 		this.vendeur = vendeur;
 		this.acheteur = acheteur;
 		this.enchere = enchere;
+		
+		defineEtatVente();
 	}
 
 	public ArrayList<Enchere> getEnchere() {
@@ -153,11 +157,24 @@ public class ArticleVendu
 	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
-	public String getEtatVente() {
+	public EtatVente getEtatVente() {
 		return etatVente;
 	}
-	public void setEtatVente(String etatVente) {
+	public void setEtatVente(EtatVente etatVente) {
 		this.etatVente = etatVente;
 	}
 	
+	private void defineEtatVente() {
+		Date dateJour = new Date();
+		
+		if(dateDebutEncheres != null) {
+			if(dateDebutEncheres.after(dateJour)) {
+				this.etatVente = EtatVente.NONDEBUTER;
+			} else if(dateFinEncheres.before(dateJour)) {
+				this.etatVente = EtatVente.TERMINER;
+			} else {
+				this.etatVente = EtatVente.ENCOURS;
+			}
+		}
+	}
 }
