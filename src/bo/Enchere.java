@@ -1,8 +1,10 @@
 package bo;
 
+import java.util.Date;
+
 public class Enchere 
 {
-	private String dateEnchère;
+	private Date dateEnchère;
 	private int montantEnchere;
 	private Utilisateur utilisateur;
 	private ArticleVendu articleVendu;
@@ -10,7 +12,7 @@ public class Enchere
 	
 	
 	
-	public Enchere(String dateEnchère, int montantEnchere, Utilisateur utilisateur, ArticleVendu articleVendu) {
+	public Enchere(Date dateEnchère, int montantEnchere, Utilisateur utilisateur, ArticleVendu articleVendu) {
 		super();
 		this.dateEnchère = dateEnchère;
 		this.montantEnchere = montantEnchere;
@@ -30,10 +32,10 @@ public class Enchere
 	public void setArticleVendu(ArticleVendu articleVendu) {
 		this.articleVendu = articleVendu;
 	}
-	public String getDateEnchère() {
+	public Date getDateEnchère() {
 		return dateEnchère;
 	}
-	public void setDateEnchère(String dateEnchère) {
+	public void setDateEnchère(Date dateEnchère) {
 		this.dateEnchère = dateEnchère;
 	}
 	public int getMontantEnchere() {
