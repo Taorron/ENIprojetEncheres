@@ -23,6 +23,7 @@
 	<div>Code Postal :</div><div>${user.getMotDePasse()}</div>
 	<div>Ville :</div><div>${user.getVille()}</div>
 
-	<input type="button" value="Modifier">
+
+	<a href="${pageContext.request.contextPath}/ModifierProfilServlet"><input type="button" value="Modifier"></a>
 </body>
 </html>
