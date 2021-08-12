@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,7 +14,6 @@ import java.util.Map;
 
 import bo.ArticleVendu;
 import bo.Category;
-import bo.Retrait;
 import bo.Utilisateur;
 
 public class ArticleDAOJdbcImpl implements ArticleDAO {
@@ -130,9 +131,44 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	}
 
 	@Override
-	public ArticleVendu insert(ArticleVendu article) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArticleVendu insert(ArticleVendu article) throws Exception {
+		ArticleVendu result = article;
+		Connection cnx = null;
+		
+		LocalDate dateDebutEnchere = article.getDateDebutEncheres().toInstant()
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
+		LocalDate dateFinEnchere = article.getDateFinEncheres().toInstant()
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
+		
+		try {
+			cnx = JdbcTools.getConnection();
+			PreparedStatement rqt = cnx.prepareStatement(INSERT_ARTICLE,PreparedStatement.RETURN_GENERATED_KEYS);
+
+			rqt.setString(1, article.getNomArticle());
+			rqt.setString(2, article.getDescription());
+			rqt.setDate(3, java.sql.Date.valueOf(dateDebutEnchere));
+			rqt.setDate(4, java.sql.Date.valueOf(dateFinEnchere));
+			rqt.setInt(5, article.getMiseAPrix());
+			rqt.setInt(6, article.getPrixVente());
+			rqt.setInt(7, article.getVendeur().getNoUtilisateur());
+			rqt.setInt(8, article.getCategorie().getNoCategorie());
+			
+			rqt.executeUpdate();
+			ResultSet rs = rqt.getGeneratedKeys();
+			if (rs.next()) {
+				result.setNoArticle((rs.getInt(1)));
+			}
+			
+			System.out.println("success insert Article new id : "+result.getNoArticle() );			
+			
+		}catch (SQLException e) {
+			cnx.rollback();
+			//propager une exception personnalisée
+			throw new Exception("Problème d'ajout d'un Article en base. Cause : " + e.getMessage());
+		}
+		return result;
 	}
 
 	@Override
