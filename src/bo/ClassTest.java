@@ -1,5 +1,8 @@
 package bo;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 import bll.ArticleManager;
@@ -15,6 +18,8 @@ public class ClassTest {
 	private static CategoryDAO categoryDao = DAOFactory.getCategoryDAO();
 	private static WithdrawDAO withdrawDao = DAOFactory.getWithdrawDAO();
 	private static ArticleDAO articleDao = DAOFactory.getArticleDAO();
+	
+	static ArticleManager articleManager = new ArticleManager();
 	
 	public static void main (String[] args) throws Exception {
 		
@@ -69,9 +74,31 @@ public class ClassTest {
 //		}
 		
 		//TestSetInfo ArticleManager
-		ArticleManager articleManager = new ArticleManager();
-		List<ArticleVendu> listArticle = articleManager.getArticles();
+//		List<ArticleVendu> listArticle = articleManager.getArticles();
 		
+		//Test Insert Article
+//		Instant now = Instant.now();
+//		Instant yesterday = now.minus(1, ChronoUnit.DAYS);
+//		
+//		ArticleVendu testArticle = new ArticleVendu(
+//				0,
+//				"LebelArticle",
+//				"Magnifique Description",
+//				 Date.from(yesterday),
+//				 Date.from(now),
+//				 5,
+//				 0,
+//				 new Category(1,"BelArticle"),
+//				 new Utilisateur(1, "",null, null, null, null, null, null, null, null, 0, false)
+//				);
+//		
+//		ArticleVendu testRetour = articleDao.insert(testArticle);
+//		System.out.println(testRetour.getNoArticle() + " " + testRetour.getNomArticle());
+		
+		//
+	
+	
+	
 	}
 	
 	
