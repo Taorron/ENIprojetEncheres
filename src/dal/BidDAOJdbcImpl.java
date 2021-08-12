@@ -71,7 +71,7 @@ public class BidDAOJdbcImpl implements BidDAO {
 			while(rs.next())
 			{
 				result.add(new Enchere(
-						rs.getDate("date_enchere").toString(),
+						rs.getDate("date_enchere"),
 						rs.getInt("montant_enchere"), 
 						new Utilisateur(rs.getInt("no_utilisateur"),
 								null,null,null,null,null,null,null,null,null,0,false, 
@@ -79,8 +79,7 @@ public class BidDAOJdbcImpl implements BidDAO {
 								new ArrayList<Enchere>()
 								), 
 						new ArticleVendu(rs.getInt("no_article"), 
-								null, null, null, null, 0, 0, null, null, null, null, null, 
-								new ArrayList<Enchere>())
+								null, null, null, null, 0, 0, null, null, null, null, null)
 						));
 			}
 			

@@ -7,7 +7,7 @@ import bo.Enchere;
 
 public interface BidDAO {
 	
-	static final String SELECT_ENCHERE = "SELECT * FROM ENCHERES WHERE no_utilisateur AND no_article is not null ";
+	static final String SELECT_ENCHERE = "SELECT * FROM ENCHERES WHERE no_utilisateur is not null AND no_article is not null ";
 	
 	public List<Enchere> select(Integer noUtil, Integer noArticle, Date dateEnchere, Integer montant)
 			throws DALException;
