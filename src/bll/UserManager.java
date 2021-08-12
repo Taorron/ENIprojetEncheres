@@ -3,7 +3,7 @@ package bll;
 
 
 import java.util.List;
-
+import java.util.regex.Pattern;
 
 import bo.Utilisateur;
 import dal.DALException;
@@ -80,4 +80,129 @@ public class UserManager {
 		
 		return utilisateur;
 	}
+	public void update(Utilisateur utilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+						String rue, String codePostal,String ville ,String nouveauMotDePasse,String confirmationNouveauMotDePasse) throws DALException
+	{
+		//TODO faire regEX
+		if (pseudo!=null && !pseudo.isEmpty()&&utilisateur.getPseudo()!=pseudo) 
+		{
+			utilisateur.setPseudo(pseudo);
+			//TODO verif si existe
+		}
+		if (nom!=null && !nom.isEmpty()&&utilisateur.getNom()!=nom) 
+		{
+			utilisateur.setNom(nom);
+		}
+		if (prenom!=null && !prenom.isEmpty()&&utilisateur.getPrenom()!=prenom) 
+		{
+			utilisateur.setPrenom(prenom);
+		}
+		if (email!=null && !email.isEmpty()&&utilisateur.getEmail()!=email) 
+		{
+			utilisateur.setEmail(email);
+			//TODO verif si existe
+		}
+		if (telephone!=null && !telephone.isEmpty()&&utilisateur.getTelephone()!=telephone) 
+		{
+			utilisateur.setTelephone(telephone);
+		}
+		if (rue!=null && !rue.isEmpty()&&utilisateur.getRue()!=rue) 
+		{
+			utilisateur.setRue(rue);
+		}
+		if (ville!=null && !ville.isEmpty()&&utilisateur.getCodePostal()!=ville) 
+		{
+			utilisateur.setVille(ville);
+		}
+		if (codePostal!=null && !codePostal.isEmpty()&&utilisateur.getCodePostal()!=codePostal) 
+		{
+			utilisateur.setCodePostal(codePostal);
+		}
+		if (nouveauMotDePasse!=null && !nouveauMotDePasse.isEmpty()&&utilisateur.getMotDePasse()!=nouveauMotDePasse&&confirmationNouveauMotDePasse.equals(nouveauMotDePasse)) 
+		{
+			utilisateur.setMotDePasse(nouveauMotDePasse);
+		}
+		userDao.update(utilisateur);
+	}
+	public boolean verificationInfoModification(Utilisateur utilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+						String rue, String codePostal,String ville , String acienMdp, String nouveauMotDePasse,String confirmationNouveauMotDePasse) throws DALException 
+	{
+		boolean verif=true;
+		
+		StringBuilder reponse = new StringBuilder();
+		boolean matchesPseudo = Pattern.matches("[a-zA-Z0-9]+", pseudo);
+		boolean matchesNom = Pattern.matches("[a-zA-Z -]+", nom);
+		boolean matchesPrenom = Pattern.matches("[a-zA-Z -]+", prenom);
+		boolean matchesCodePostal = Pattern.matches("[0-9]{5}", codePostal);
+		boolean matchesVille = Pattern.matches("[a-zA-Z -]+", ville);
+		
+		boolean matchesTel = Pattern.matches("[0-9]{10}", telephone);
+		boolean matchesEmail = Pattern.matches("[a-zA-Z0-9]+(@)[a-zA-Z]+(.)[a-zA-Z]+", email);
+		
+		if (!utilisateur.getNom().equals(nom)&&!matchesNom) 
+		{
+			verif=false;
+		}
+		if (!utilisateur.getPrenom().equals(prenom)&&!matchesPrenom) 
+		{
+			verif=false;
+		}
+		if (!utilisateur.getTelephone().equals(telephone)&&!matchesTel) 
+		{
+			verif=false;
+		}
+		if (!utilisateur.getCodePostal().equals(codePostal)&&!matchesCodePostal) 
+		{
+			verif=false;
+		}
+		if (!utilisateur.getVille().equals(ville)&&!matchesVille) 
+		{
+			verif=false;
+		}
+		List<Utilisateur> utilisateurs=null;
+		if (!utilisateur.getMotDePasse().equals(acienMdp)) 
+		{
+			verif=false;
+		}
+		else
+		{
+			//verif pour la modification de mdp
+			if (!nouveauMotDePasse.isEmpty()&&!confirmationNouveauMotDePasse.isEmpty()) 
+			{
+				if (!nouveauMotDePasse.equals(confirmationNouveauMotDePasse)) 
+				{
+					verif=false;
+				}
+			}
+		}
+		
+		//verif si pseudo existe deja
+		if (!utilisateur.getPseudo().equals(pseudo)) 
+		{
+			utilisateurs = userDao.select(null, pseudo, null, null, null, null, null, null, null, null, null, null);
+			if (!utilisateurs.isEmpty()||!matchesPseudo) 
+			{
+				verif=false;
+//				reponse.append("Le pseudo existe déjà. \n");
+//				System.out.println(pseudo);
+			}
+			
+		}
+		
+		//verfi si mail existe deja
+		if (!utilisateur.getEmail().equals(email)) 
+		{
+			utilisateurs = userDao.select(null, null, null, null, email, null, null, null, null, null, null, null);
+			if (!utilisateurs.isEmpty()||!matchesEmail) 
+			{
+				verif=false;
+//				reponse.append("Le mail existe déjà. \n");
+			}
+		}
+		
+		return verif;
+		
+	}
+	
+	
 }

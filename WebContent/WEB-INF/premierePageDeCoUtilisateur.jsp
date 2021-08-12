@@ -20,7 +20,7 @@
 	<div>ENI-Encheres</div>
 	<a href="#">Enchères</a>
 	<a href="#">Vendre un article</a>
-	<a href="#">Mon profil</a>
+	<a href="${pageContext.request.contextPath}/VoirProfilServlet">Mon profil</a>
 	<a href="#">Déconnexion</a>
 
 	<div>Liste des enchères</div>

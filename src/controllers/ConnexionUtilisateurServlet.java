@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,14 +57,21 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 			{
 				
 				HttpSession session=request.getSession();
-				
 				session.setAttribute("user", utilisateur);
+				
+				Cookie cookie = new Cookie("identifiant", identifiant);
+				Cookie cookieMDP = new Cookie("mdp", mdp);
+				response.addCookie(cookie);
+				response.addCookie(cookieMDP);
+				
+
 				
 				rd = request.getRequestDispatcher("/WEB-INF/premierePageDeCoUtilisateur.jsp");
 			}
 			else
 			{
 				rd = request.getRequestDispatcher("/WEB-INF/connexion.jsp");
+				request.setAttribute("erreur","Mot de passe et/ou identifiant introuvable");
 				
 			}
 			rd.forward(request, response);
