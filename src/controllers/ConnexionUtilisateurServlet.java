@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bll.BLLException;
+import bll.CategoryManager;
 import bll.UserManager;
 import bo.ArticleVendu;
+import bo.Category;
 import bo.Enchere;
 import bo.Utilisateur;
 import dal.DALException;
@@ -82,8 +84,10 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 				HttpSession session=request.getSession();
 				session.setAttribute("user", utilisateur);
 
-				
-				rd = request.getRequestDispatcher("/WEB-INF/premierePageDeCoUtilisateur.jsp");
+				CategoryManager categoryManager = new CategoryManager();
+				List<Category> categories = categoryManager.select(null, null);
+				request.setAttribute("categories", categories);
+				rd = request.getRequestDispatcher("index.jsp");
 			}
 			else
 			{
