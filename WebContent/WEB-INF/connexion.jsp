@@ -11,33 +11,51 @@
 <title>Encheres connection</title>
 </head>
 <body>
-<div>ENI-Encheres</div>
-<form action="ConnexionUtilisateurServlet" method="post">
-	<div>Identifiant : </div>
-
-	<input class="form-control" type="text" name="identifiant" value="${cookie['identifiant'].getValue()}">
-	<div>Mot de passe : </div>
-	<input class="form-control" type="text" name="mdp" value="${cookie['mdp'].getValue()}">
-	<button class="btn btn-primary">Connexion</button>
-	<c:choose>
-	    <c:when test="${cookie['seSouvenir'].getValue().equals('on')}">
-	        <input name="seSouvenir" type="checkbox" checked="checked">
-	    </c:when>
-	    <c:otherwise>
-	        <input name="seSouvenir" type="checkbox">
-	    </c:otherwise>
-	</c:choose>
-</form>
-<div>Se souvenir de moi</div>
-<a href="#">Mot de passe oublié</a>
-<form action="${pageContext.request.contextPath}/CreateUserServlet" method="get">
-	<input class="btn btn-primary" type=submit value="Créer un compte">
-</form>
-
- <c:if test="${erreur!=null}">
- 	<div class="alert alert-danger" role="alert">${erreur}</div>
- 
- </c:if>
+<%@include file="import/header.jsp" %>
+	 <c:if test="${erreur!=null}">
+		 <div class="alert alert-warning alert-dismissible fade show" role="alert">
+		  ${erreur}
+		</div>
+	 </c:if>
+	 
+	<h2 class="text-center mt-5">Connexion</h2>
+	
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col-md-5 pt-5">
+				<form action="ConnexionUtilisateurServlet" method="post">
+				  <div class="form-group">
+				    <label for="identifiant">Identifiant</label>
+				    <input type="text" class="form-control" id="identifiant" name="identifiant" value="${cookie['identifiant'].getValue()}" aria-describedby="identifiantHelp" placeholder="Pseudo / email">
+				    <small id="identifiantHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+				  </div>
+				  <div class="form-group">
+				    <label for="mdp">Mot de passe</label>
+				    <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Mot de passe" value="${cookie['mdp'].getValue()}">
+					<a href="#">Mot de passe oublié</a>		  
+				  </div>
+				  <div class="form-check">
+				  <label class="form-check-label" for="seSouvenir">Se souvenir de moi</label>
+					  <c:choose>
+					    <c:when test="${cookie['seSouvenir'].getValue().equals('on')}">
+					        <input class="form-check-input" id="seSouvenir" name="seSouvenir" type="checkbox" checked="checked">
+					    </c:when>
+					    <c:otherwise>
+					        <input name="seSouvenir" type="checkbox" id="seSouvenir" name="seSouvenir">
+					    </c:otherwise>
+					 </c:choose>
+		
+				  </div>
+				  <button type="submit" class="btn btn-primary">Se connecter</button>
+				</form>
+		
+				<!-- Create Account -->
+				<form class="mt-5" action="${pageContext.request.contextPath}/CreateUserServlet" method="get">
+					<input class="btn btn-primary" type=submit value="Créer un compte">
+				</form>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
