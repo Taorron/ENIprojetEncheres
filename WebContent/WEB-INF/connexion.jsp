@@ -19,8 +19,15 @@
 	<div>Mot de passe : </div>
 	<input class="form-control" type="text" name="mdp" value="${cookie['mdp'].getValue()}">
 	<button class="btn btn-primary">Connexion</button>
+	<c:choose>
+	    <c:when test="${cookie['seSouvenir'].getValue().equals('on')}">
+	        <input name="seSouvenir" type="checkbox" checked="checked">
+	    </c:when>
+	    <c:otherwise>
+	        <input name="seSouvenir" type="checkbox">
+	    </c:otherwise>
+	</c:choose>
 </form>
-<input type="checkbox">
 <div>Se souvenir de moi</div>
 <a href="#">Mot de passe oublié</a>
 <form action="${pageContext.request.contextPath}/CreateUserServlet" method="get">
