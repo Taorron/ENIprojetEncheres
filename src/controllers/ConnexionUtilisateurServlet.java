@@ -46,6 +46,7 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 		String identifiant=request.getParameter("identifiant");
 		
 		String mdp = request.getParameter("mdp");
+		String seSouvenir = request.getParameter("seSouvenir");
 	
 	
 		try {
@@ -55,15 +56,31 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 			RequestDispatcher rd=null;
 			if (utilisateur!=null) 
 			{
+				Cookie cookie;
+				Cookie cookieMDP;
+				Cookie seSouvenirChecked;
+				if (seSouvenir!=null && seSouvenir.equals("on")) 
+				{
+										
+					cookie = new Cookie("identifiant", identifiant);
+					cookieMDP = new Cookie("mdp", mdp);
+					seSouvenirChecked = new Cookie("seSouvenir", seSouvenir);
+					
+				}
+				else
+				{
+
+					cookie = new Cookie("identifiant", "");
+					cookieMDP = new Cookie("mdp", "");
+					seSouvenirChecked = new Cookie("seSouvenir", "");
+					
+				}
+				response.addCookie(cookie);
+				response.addCookie(cookieMDP);
+				response.addCookie(seSouvenirChecked);
 				
 				HttpSession session=request.getSession();
 				session.setAttribute("user", utilisateur);
-				
-				Cookie cookie = new Cookie("identifiant", identifiant);
-				Cookie cookieMDP = new Cookie("mdp", mdp);
-				response.addCookie(cookie);
-				response.addCookie(cookieMDP);
-				
 
 				
 				rd = request.getRequestDispatcher("/WEB-INF/premierePageDeCoUtilisateur.jsp");
