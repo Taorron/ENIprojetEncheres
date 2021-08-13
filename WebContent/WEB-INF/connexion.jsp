@@ -23,7 +23,10 @@
 <input type="checkbox">
 <div>Se souvenir de moi</div>
 <a href="#">Mot de passe oublié</a>
-<button class="btn btn-primary">Créer un compte</button>
+<form action="${pageContext.request.contextPath}/CreateUserServlet" method="get">
+	<input class="btn btn-primary" type=submit value="Créer un compte">
+</form>
+
  <c:if test="${erreur!=null}">
  	<div class="alert alert-danger" role="alert">${erreur}</div>
  
