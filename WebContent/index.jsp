@@ -35,17 +35,17 @@
 				    <c:if test="${user!=null}">
 					    <div class="row">
 					    	<div class="col">
-						    	<input type="radio"><label>Achats</label><br>
-								<input type="checkbox"><label> enchères ouvertes</label><br>
-								<input type="checkbox"><label>mes enchères en cours</label><br>
-								<input type="checkbox"><label>mes enchères remportées</label><br>
+						    	<input id="achats" type="radio"><label>Achats</label><br>
+								<input id="encheresOuvertes" type="checkbox"><label> enchères ouvertes</label><br>
+								<input id="mesEncheresEnCours" type="checkbox"><label>mes enchères en cours</label><br>
+								<input id="mesEncheresRemportees" type="checkbox"><label>mes enchères remportées</label><br>
 					    	</div>
 					    	
 					    	<div class="col">
-						    	<input type="radio"><label>Mes ventes</label><br>
-								<input type="checkbox"><label>mes ventes en cours</label><br>
-								<input type="checkbox"><label>ventes non débutées</label><br>
-								<input type="checkbox"><label>ventes terminées</label><br>
+						    	<input id="ventes" type="radio"><label>Mes ventes</label><br>
+								<input id="mesVentesEnCours" type="checkbox"><label>mes ventes en cours</label><br>
+								<input id="ventesNonDebute" type="checkbox"><label>ventes non débutées</label><br>
+								<input id="ventesTerminees" type="checkbox"><label>ventes terminées</label><br>
 					    	</div>
 					    
 					    </div>
@@ -66,6 +66,60 @@
 		
 	</div>
 	
+	<script type="text/javascript">
+	$( "#achats" ).click(function() {
+		
+		$( "#encheresOuvertes" ).removeAttr("disabled");
+		$( "#mesEncheresEnCours" ).removeAttr("disabled");
+		$( "#mesEncheresRemportees" ).removeAttr("disabled");
+		
+		if ($( "#achats" ).prop("checked") == true) 
+		{
+			$( "#ventes" ).prop("checked",false);
+			
+			$( "#mesVentesEnCours" ).prop("checked",false);
+			$( "#mesVentesEnCours" ).attr("disabled", "disabled");
+			
+			$( "#ventesNonDebute" ).prop("checked",false);
+			$( "#ventesNonDebute" ).attr("disabled", "disabled");
+			
+			$( "#ventesTerminees" ).prop("checked",false);
+			$( "#ventesTerminees" ).attr("disabled", "disabled");
+		}
+	})
 	
+	$( "#ventes" ).click(function() {
+		
+		$( "#mesVentesEnCours" ).removeAttr("disabled");
+		$( "#ventesNonDebute" ).removeAttr("disabled");
+		$( "#ventesTerminees" ).removeAttr("disabled");
+		
+		if ($( "#ventes" ).prop("checked") == true) 
+		{
+			$( "#achats" ).prop("checked",false);
+			
+			$( "#encheresOuvertes" ).prop("checked",false);
+			$( "#encheresOuvertes" ).attr("disabled", "disabled");
+			
+			$( "#mesEncheresEnCours" ).prop("checked",false);
+			$( "#mesEncheresEnCours" ).attr("disabled", "disabled");
+			
+			$( "#mesEncheresRemportees" ).prop("checked",false);
+			$( "#mesEncheresRemportees" ).attr("disabled", "disabled");
+		}
+	})
+	/*  if () 
+	 {
+		 $( "#vente" ).attr("disabled", "disabled");
+	}
+	 if () 
+	 {
+		 $( "#achat" ).attr("disabled", "disabled");
+	} */
+	
+ 	/* document.getElementById("vente").disabled = true; */
+		
+
+	</script>
 </body>
 </html>
