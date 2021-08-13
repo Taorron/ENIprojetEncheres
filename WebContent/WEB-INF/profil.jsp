@@ -20,7 +20,7 @@
 	<div>Email :</div><div>${user.getEmail()}</div>
 	<div>Téléphone :</div><div>${user.getTelephone()}</div>
 	<div>Rue :</div><div>${user.getRue()}</div>
-	<div>Code Postal :</div><div>${user.getMotDePasse()}</div>
+	<div>Code Postal :</div><div>${user.getCodePostal()}</div>
 	<div>Ville :</div><div>${user.getVille()}</div>
 
 
