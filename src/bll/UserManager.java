@@ -309,6 +309,10 @@ public class UserManager {
 //		matchesTel = Pattern.matches("[0-9]{10}", telephone);
 //		matchesEmail = Pattern.matches("[a-zA-Z0-9]+(@)[a-zA-Z]+(.)[a-zA-Z]+", email);
 //	}
+	public void delete(int noUser) throws DALException
+	{
+		userDao.delete(noUser);
+	}
 
 	
 	
