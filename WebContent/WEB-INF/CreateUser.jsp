@@ -12,7 +12,7 @@
 		  <div class="form-row">
 		    <div class="form-group col-md-6">
 		      <label for="inputNickname">Pseudo</label>
-		      <input type="email" class="form-control" name="inputNickname" id="inputNickname" placeholder="Pseudo">
+		      <input type="text" class="form-control" name="inputNickname" id="inputNickname" placeholder="Pseudo">
 		    </div>
 		    <div class="form-group col-md-6">
 		      <label for="inputMail">Email</label>
