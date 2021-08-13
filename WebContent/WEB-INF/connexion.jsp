@@ -12,9 +12,13 @@
 </head>
 <body>
 <%@include file="import/header.jsp" %>
+
 	 <c:if test="${erreur!=null}">
 		 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-		  ${erreur}
+	 		 ${erreur}
+	  		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	   		 <span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 	 </c:if>
 	 
