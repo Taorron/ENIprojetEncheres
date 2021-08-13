@@ -124,20 +124,50 @@ public class UserManager {
 		}
 		userDao.update(utilisateur);
 	}
+	
+	public boolean createUser(String pseudo, String name, String firstName, String email, String phone, String street,
+			String zip, String city, String pwd){
+		
+		boolean result = false;
+		try {
+			result = userDao.insert(new Utilisateur(
+						0,
+						pseudo,
+						name,
+						firstName,
+						email,
+						phone,
+						street,
+						zip,
+						city,
+						pwd,
+						0,
+						false
+					)) != null;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = false;
+		}
+		
+		return result;
+	}
+	
 	public boolean verificationInfoModification(Utilisateur utilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 						String rue, String codePostal,String ville , String acienMdp, String nouveauMotDePasse,String confirmationNouveauMotDePasse) throws DALException 
 	{
 		boolean verif=true;
 		
-		StringBuilder reponse = new StringBuilder();
-		boolean matchesPseudo = Pattern.matches("[a-zA-Z0-9]+", pseudo);
-		boolean matchesNom = Pattern.matches("[a-zA-Z -]+", nom);
-		boolean matchesPrenom = Pattern.matches("[a-zA-Z -]+", prenom);
-		boolean matchesCodePostal = Pattern.matches("[0-9]{5}", codePostal);
-		boolean matchesVille = Pattern.matches("[a-zA-Z -]+", ville);
+		boolean matchesPseudo = false;
+		boolean matchesNom = false;
+		boolean matchesPrenom = false;
+		boolean matchesCodePostal = false;
+		boolean matchesVille = false;
+		boolean matchesTel = false;
+		boolean matchesEmail = false;
 		
-		boolean matchesTel = Pattern.matches("[0-9]{10}", telephone);
-		boolean matchesEmail = Pattern.matches("[a-zA-Z0-9]+(@)[a-zA-Z]+(.)[a-zA-Z]+", email);
+		checkRegex(matchesPseudo,pseudo,matchesNom,nom,matchesPrenom,prenom,matchesCodePostal,
+				codePostal, matchesVille, ville, matchesTel, telephone, matchesEmail,email);
 		
 		if (!utilisateur.getNom().equals(nom)&&!matchesNom) 
 		{
@@ -203,6 +233,90 @@ public class UserManager {
 		return verif;
 		
 	}
+	
+	public boolean checkCredentialNewUser(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville , String pwd ,String confirmPwd) throws DALException {
+				
+		boolean verif=true;
+		
+		boolean matchesPseudo = false;
+		boolean matchesNom = false;
+		boolean matchesPrenom = false;
+		boolean matchesCodePostal = false;
+		boolean matchesVille = false;
+		boolean matchesTel = false;
+		boolean matchesEmail = false;
+		
+		checkRegex(matchesPseudo,pseudo,matchesNom,nom,matchesPrenom,prenom,matchesCodePostal,
+				codePostal, matchesVille, ville, matchesTel, telephone, matchesEmail,email);
+		
+		if (!matchesNom) 
+		{
+			verif=false;
+		}
+		if (!matchesPrenom) 
+		{
+			verif=false;
+		}
+		if (!matchesTel) 
+		{
+			verif=false;
+		}
+		if (!matchesCodePostal) 
+		{
+			verif=false;
+		}
+		if (!matchesVille) 
+		{
+			verif=false;
+		}
+		
+		if (!pwd.isEmpty()&&!confirmPwd.isEmpty()) 
+		{
+			if (!pwd.equals(confirmPwd)) 
+			{
+				verif=false;
+			}
+		} else {
+			verif = false;
+		}
+		
+		List<Utilisateur> utilisateurs=null;
+		//verif si pseudo existe deja
+		utilisateurs = userDao.select(null, pseudo, null, null, null, null, null, null, null, null, null, null);
+		if (!utilisateurs.isEmpty()||!matchesPseudo)
+		{
+			verif=false;
+//				reponse.append("Le pseudo existe déjà. \n");
+//				System.out.println(pseudo);
+		}
+			
+		utilisateurs=null;
+		//verfi si mail existe deja
+		utilisateurs = userDao.select(null, null, null, null, email, null, null, null, null, null, null, null);
+		if (!utilisateurs.isEmpty()||!matchesEmail) 
+		{
+			verif=false;
+//			reponse.append("Le mail existe déjà. \n");
+		}
+		
+		return verif;
+	}
+	
+	public void checkRegex(boolean matchesPseudo, String pseudo, boolean matchesNom, String nom,
+			boolean matchesPrenom, String prenom, boolean matchesCodePostal, String codePostal,
+			boolean matchesVille, String ville, boolean matchesTel, String telephone,
+			boolean matchesEmail, String email) {
+		matchesPseudo = Pattern.matches("[a-zA-Z0-9]+", pseudo);
+		matchesNom = Pattern.matches("[a-zA-Z -]+", nom);
+		matchesPrenom = Pattern.matches("[a-zA-Z -]+", prenom);
+		matchesCodePostal = Pattern.matches("[0-9]{5}", codePostal);
+		matchesVille = Pattern.matches("[a-zA-Z -]+", ville);
+		matchesTel = Pattern.matches("[0-9]{10}", telephone);
+		matchesEmail = Pattern.matches("[a-zA-Z0-9]+(@)[a-zA-Z]+(.)[a-zA-Z]+", email);
+	}
+
+	
 	
 	
 }
