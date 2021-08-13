@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bll.UserManager;
+import bo.Utilisateur;
 import dal.DALException;
 
 /**
@@ -47,8 +48,8 @@ public class CreateUserServlet extends HttpServlet {
 		String email = request.getParameter("inputMail");
 		String phone = request.getParameter("inputPhone");
 		String street = request.getParameter("inputAddress");
-		String zip = request.getParameter("codePostal");
-		String city = request.getParameter("inputZip");
+		String zip = request.getParameter("inputZip");
+		String city = request.getParameter("inputCity");
 		String pwd = request.getParameter("inputPassword");
 		String confirmPwd = request.getParameter("inputConfirmPassword");
 
@@ -65,17 +66,20 @@ public class CreateUserServlet extends HttpServlet {
 						
 			if (checkInfo) 
 			{
-				if (userManager.createUser(pseudo, name, firstName, email, phone, street, zip, city, pwd)) {
-					System.out.println("erreur");
+				Utilisateur newUser = userManager.createUser(pseudo, name, firstName, email, phone, street, zip, city, pwd);
+				if (newUser != null) {
+					System.out.println("Utilisateur crée id : " + newUser.getNoUtilisateur());
+				} else {
+					System.out.println("Une erreur est survenu à la creation de compte");
 				}
-				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/profil.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/connexion.jsp");
 				rd.forward(request, response);
 			}
 			else
 			{
-				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/modifierProfil.jsp");
+				System.out.println("Erreur données non conforme");
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/connexion.jsp");
 				rd.forward(request, response);
-				System.out.println("erreur");
 			}
 				
 	}
