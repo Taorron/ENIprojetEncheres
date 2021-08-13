@@ -30,6 +30,7 @@
 		
 	<button type="submit">Enregistrer</button>
 	</form>
+	<a href="${pageContext.request.contextPath}/SuppUserServlet"><button type="button">Supprimer mon compte</button></a>
 	<%-- <input type="button" value="Modifier" onclick="openWindow('${pageContext.request.contextPath}'/ModifierProfilServlet)"> --%>
 </body>
 </html>
