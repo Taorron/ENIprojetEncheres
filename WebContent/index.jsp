@@ -15,7 +15,6 @@
 	<h2 class="text-center mt-5">Liste des enchères</h2>
 	
 	<div class="container mt-5">
-<<<<<<< HEAD
 		<form method="get" action="#">
 			<div class="row">
 					<div class="col-lg">
@@ -54,8 +53,6 @@
 					</div>
 				<div class="col-lg d-flex align-self-center justify-content-center">
 					<input class="btn btn-primary" type="submit" value="Rechercher">
-
->>>>>>> origin/master
 				</div>
 			</div>
 		</form>
