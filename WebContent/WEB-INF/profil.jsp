@@ -13,25 +13,33 @@
 	</head>
 	<body>
 	<%@include file="import/header.jsp" %>
-	
-		<h2 class="text-center mt-5">Profil de ${user.getPseudo()}</h2>
-		
-		<div class="container">
-			<div class="row justify-content-md-center">
-				<div class="col pt-5 text-center">
-					<p>Pseudo : ${user.getPseudo()}</p>
-					<p>Nom : ${user.getNom()}</p>
-					<p>Prénom : ${user.getPrenom()}</p>
-					<p>Email : ${user.getEmail()}</p>
-					<p>Téléphone : ${user.getTelephone()}</p>
-					<p>Rue : ${user.getRue()}</p>
-					<p>Code Postal : ${user.getCodePostal()}</p>
-					<p>Ville : ${user.getVille()}</p>
-					
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/ModifierProfilServlet">Modifier</a>				
+		<c:choose> 
+			<c:when test="${seller!=null}">
+				<h2 class="text-center mt-5">Profil de ${seller.getPseudo()}</h2>
+				
+				<div class="container">
+					<div class="row justify-content-md-center">
+						<div class="col pt-5 text-center">
+							<p>Pseudo : ${seller.getPseudo()}</p>
+							<p>Nom : ${seller.getNom()}</p>
+							<p>Prénom : ${seller.getPrenom()}</p>
+							<p>Email : ${seller.getEmail()}</p>
+							<p>Téléphone : ${seller.getTelephone()}</p>
+							<p>Rue : ${seller.getRue()}</p>
+							<p>Code Postal : ${seller.getCodePostal()}</p>
+							<p>Ville : ${seller.getVille()}</p>
+							
+							<c:if test="${canEdit == true}">
+								<a class="btn btn-primary" href="${pageContext.request.contextPath}/ModifierProfilServlet">Modifier</a>
+							</c:if>
+											
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-
+			</c:when>
+			<c:otherwise>
+				<h2 class="text-center mt-5">Aucun profil séléctionné</h2>
+			</c:otherwise>
+		</c:choose>
 	</body>
 </html>
