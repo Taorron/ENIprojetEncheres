@@ -35,17 +35,17 @@
 					    <c:if test="${user!=null}">
 						    <div class="row">
 						    	<div class="col">
-							    	<input id="achats" type="radio"><label>Achats</label><br>
-									<input id="encheresOuvertes" type="checkbox"><label> enchères ouvertes</label><br>
-									<input id="mesEncheresEnCours" type="checkbox"><label>mes enchères en cours</label><br>
-									<input id="mesEncheresRemportees" type="checkbox"><label>mes enchères remportées</label><br>
+							    	<input id="achats" type="radio"><label for="achats"> Achats</label><br>
+									<input id="encheresOuvertes" name="encheresOuvertes" type="checkbox"><label for="encheresOuvertes"> enchères ouvertes</label><br>
+									<input id="mesEncheresEnCours" name="mesEncheresEnCours" type="checkbox"><label for="mesEncheresEnCours"> mes enchères en cours</label><br>
+									<input id="mesEncheresRemportees" name="mesEncheresRemportees" type="checkbox"><label for="mesEncheresRemportees"> mes enchères remportées</label><br>
 						    	</div>
 						    	
 						    	<div class="col">
-							    	<input id="ventes" type="radio"><label>Mes ventes</label><br>
-									<input id="mesVentesEnCours" type="checkbox"><label>mes ventes en cours</label><br>
-									<input id="ventesNonDebute" type="checkbox"><label>ventes non débutées</label><br>
-									<input id="ventesTerminees" type="checkbox"><label>ventes terminées</label><br>
+							    	<input id="ventes" type="radio"><label for="ventes"> Mes ventes</label><br>
+									<input id="mesVentesEnCours" name="mesVentesEnCours" type="checkbox"><label for="mesVentesEnCours">mes ventes en cours</label><br>
+									<input id="ventesNonDebute" name="ventesNonDebute" type="checkbox"><label for="ventesNonDebute">ventes non débutées</label><br>
+									<input id="ventesTerminees" name="ventesTerminees" type="checkbox"><label for="ventesTerminees">ventes terminées</label><br>
 						    	</div>
 						    </div>
 						</c:if>
@@ -58,55 +58,28 @@
 		</form>
 		
 		<div class="row justify-content-center">
-
-	 		<div class="card mb-4 m-1" style="max-width: 500px;">
-			  <div class="row no-gutters">
-			    <div class="col-md-4">
-			      <img src="https://via.placeholder.com/150" alt="img">
-			    </div>
-			    <div class="col-md-6">
-			      <div class="card-body">
-			        <h5 class="card-title"><a href="#" class="">Fauteuil</a></h5>
-			        <p class="card-text">Prix : 30 points</p>
-			        <p class="card-text">Date fin : 01/01/2220</p>
-			        <p class="card-text"><a href="#" class="">Jean-pierre</a></p>
-			      </div>
-			    </div>
-			  </div>
-			</div>
 			
-			<div class="card mb-4 m-1" style="max-width: 500px;">
-			  <div class="row no-gutters">
-			    <div class="col-md-4">
-			      <img src="https://via.placeholder.com/150" alt="img">
-			    </div>
-			    <div class="col-md-6">
-			      <div class="card-body">
-			        <h5 class="card-title"><a href="#" class="">Fauteuil</a></h5>
-			        <p class="card-text">Prix : 30 points</p>
-			        <p class="card-text">Date fin : 01/01/2220</p>
-			        <p class="card-text"><a href="#" class="">Jean-pierre</a></p>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			
-			<div class="card mb-4 m-1" style="max-width: 500px;">
-			  <div class="row no-gutters">
-			    <div class="col-md-4">
-			      <img src="https://via.placeholder.com/150" alt="img">
-			    </div>
-			    <div class="col-md-6">
-			      <div class="card-body">
-			        <h5 class="card-title"><a href="#" class="">Fauteuil</a></h5>
-			        <p class="card-text">Prix : 30 points</p>
-			        <p class="card-text">Date fin : 01/01/2220</p>
-			        <p class="card-text"><a href="#" class="">Jean-pierre</a></p>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-
+			<c:if test="${articles.isEmpty()}">
+				<h3 class="text-center">Aucune enchère en cours</h3>
+			</c:if>
+					
+			<c:forEach var="article" items="${articles}">
+				<div class="card mb-4 m-1" style="max-width: 500px;">
+				  <div class="row no-gutters">
+				    <div class="col-md-4">
+				      <img src="https://via.placeholder.com/150" alt="img">
+				    </div>
+				    <div class="col-md-6">
+				      <div class="card-body">
+				        <h5 class="card-title"><a href="#" class="">${article.getNomArticle()}</a></h5>
+				        <p class="card-text">Prix : ${article.getPrixVente()} points</p>
+				        <p class="card-text">Date fin : ${article.getDateFinEncheres()}</p>
+				        <p class="card-text"><a href="${pageContext.request.contextPath}/VoirProfilServlet?sellerId=${article.getVendeur().getNoUtilisateur()}" class="">Vendeur : ${article.getVendeur().getPseudo()}</a></p>
+				      </div>
+				    </div>
+				  </div>
+				</div>		
+			</c:forEach>
 		</div>
 	</div>
 	
