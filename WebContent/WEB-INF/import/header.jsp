@@ -20,7 +20,7 @@
 	       	</li>
 	       	
 	       	<li class="nav-item">
-				<a class="nav-link" href="#">Vendre un article</a>
+				<a class="nav-link" href="${pageContext.request.contextPath}/NouvelleVenteServlet">Vendre un article</a>
 			</li>
 			
 			<li class="nav-item">

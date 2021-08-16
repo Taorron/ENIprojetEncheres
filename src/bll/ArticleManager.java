@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import bo.ArticleVendu;
+import bo.Category;
 import bo.Enchere;
 import bo.EtatVente;
+import bo.Retrait;
 import bo.Utilisateur;
 import dal.ArticleDAO;
 import dal.DALException;
@@ -107,6 +109,69 @@ public class ArticleManager {
 		
 		article.setAcheteur(buyer);
 		article.setPrixVente(sellPrice);
+	}
+	
+	public void saveArticle(ArticleVendu article) throws Exception
+	{
+		articleDao.insert(article);
+	}
+	
+	public ArticleVendu verifArticle(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, 
+			String miseAPrix, String categorie, Utilisateur user,Utilisateur vendeur, String rue, String cp, String ville ) 
+	{
+		ArticleVendu article=null;
+		boolean value=true;
+		int miseAPrix1=0;
+		int categ=0;
+		if (nomArticle.isEmpty()) {
+			value=false;
+		}
+		if (description.isEmpty()) {
+			value=false;	
+		}
+		if (dateDebutEncheres==null) {
+			value=false;
+		}
+		if (dateFinEncheres==null) {
+			value=false;
+		}
+		if (miseAPrix.isEmpty()) {
+			value=false;
+		}
+		else
+		{
+			miseAPrix1=Integer.parseInt(miseAPrix);	
+		}
+		
+		if (categorie.isEmpty()) {
+			value=false;
+		}
+		else
+		{
+			categ=Integer.parseInt(categorie);	
+		}
+		if (user==null) {
+			value=false;
+		}
+		if (vendeur==null) {
+			value=false;		
+		}
+		if (rue.isEmpty()) {
+			value=false;
+		}
+		if (cp.isEmpty()) {
+			value=false;
+		}
+		if (ville.isEmpty()) {
+			value=false;
+		}
+		if (value) {
+			
+			article=new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix1, miseAPrix1, 
+					new Category(categ, null), new Retrait(rue, cp, ville), user,null);
+		}
+		
+		return article;
 	}
 	
 	
