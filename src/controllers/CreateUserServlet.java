@@ -72,16 +72,13 @@ public class CreateUserServlet extends HttpServlet {
 				} else {
 					System.out.println("Une erreur est survenu à la creation de compte");
 				}
-				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/connexion.jsp");
-				rd.forward(request, response);
 			}
 			else
 			{
 				System.out.println("Erreur données non conforme");
-				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/connexion.jsp");
-				rd.forward(request, response);
 			}
-				
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/connexion.jsp");
+			rd.forward(request, response);
 	}
 
 }
