@@ -62,20 +62,16 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 				Cookie cookieMDP;
 				Cookie seSouvenirChecked;
 				if (seSouvenir!=null && seSouvenir.equals("on")) 
-				{
-										
+				{				
 					cookie = new Cookie("identifiant", identifiant);
 					cookieMDP = new Cookie("mdp", mdp);
 					seSouvenirChecked = new Cookie("seSouvenir", seSouvenir);
-					
 				}
 				else
 				{
-
 					cookie = new Cookie("identifiant", "");
 					cookieMDP = new Cookie("mdp", "");
 					seSouvenirChecked = new Cookie("seSouvenir", "");
-					
 				}
 				response.addCookie(cookie);
 				response.addCookie(cookieMDP);
@@ -84,10 +80,10 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 				HttpSession session=request.getSession();
 				session.setAttribute("user", utilisateur);
 
-				CategoryManager categoryManager = new CategoryManager();
-				List<Category> categories = categoryManager.select(null, null);
-				request.setAttribute("categories", categories);
-				rd = request.getRequestDispatcher("index.jsp");
+//				CategoryManager categoryManager = new CategoryManager();
+//				List<Category> categories = categoryManager.select(null, null);
+//				request.setAttribute("categories", categories);
+				rd = request.getRequestDispatcher("/IndexServlet");
 			}
 			else
 			{
