@@ -40,6 +40,21 @@ public class ArticleManager {
 		return result;
 	}
 	
+	public List<ArticleVendu> getArticlesBidding(){
+		List<ArticleVendu> result = new ArrayList<ArticleVendu>();
+		
+		List<ArticleVendu> allArticles = getArticles();
+		
+		for (ArticleVendu articleVendu : allArticles) {
+			if(articleVendu.getEtatVente() == EtatVente.ENCOURS) {
+				result.add(articleVendu);
+			}
+		}
+		
+		return result;
+		
+	}
+	
 	public ArticleVendu getArticleById(int no_article) {
 		ArticleVendu result = null;		
 		try {
@@ -77,7 +92,7 @@ public class ArticleManager {
 	
 	public void findBuyerAndSetSellPrice(ArticleVendu article) {
 		Utilisateur buyer = null;
-		int sellPrice = 0;
+		int sellPrice = article.getPrixVente();
 		if(article.getEtatVente() == EtatVente.TERMINER) {
 			
 			Date lastDate = null;
