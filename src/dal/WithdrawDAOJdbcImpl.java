@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bo.ArticleVendu;
 import bo.Retrait;
 
 public class WithdrawDAOJdbcImpl implements WithdrawDAO{
@@ -83,9 +86,33 @@ public class WithdrawDAOJdbcImpl implements WithdrawDAO{
 	}
 
 	@Override
-	public Retrait insert(Retrait retrait) throws DALException {
+	public void insert(Retrait retrait) throws DALException {
+
+		Connection cnx = null;
+		
+		try {
+			cnx = JdbcTools.getConnection();
+			PreparedStatement rqt = cnx.prepareStatement(INSERT_WITHDRAW,PreparedStatement.RETURN_GENERATED_KEYS);
+			rqt.setInt(1, retrait.getArticleVendu().getNoArticle());
+			rqt.setString(2, retrait.getRue());
+			rqt.setString(3, retrait.getCodePostal());
+			rqt.setString(4, retrait.getVille());
+			
+			
+			rqt.executeUpdate();
+			
+			
+//			System.out.println("success insert Article new id : "+result.getNoArticle() );			
+			
+		}catch (SQLException e) {
+			
+			//propager une exception personnalisée
+			
+		}
+//		return result;
+	
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override

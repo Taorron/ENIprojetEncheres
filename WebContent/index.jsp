@@ -71,7 +71,7 @@
 				    </div>
 				    <div class="col-md-6">
 				      <div class="card-body">
-				        <h5 class="card-title"><a href="#" class="">${article.getNomArticle()}</a></h5>
+				        <h5 class="card-title"><a id="${article.getNoArticle()}" href="${pageContext.request.contextPath}/AfficherVente?IdVente=${article.getNoArticle()}" class="">${article.getNomArticle()}</a></h5>
 				        <p class="card-text">Prix : ${article.getPrixVente()} points</p>
 				        <p class="card-text">Date fin : ${article.getDateFinEncheres()}</p>
 				        <p class="card-text"><a href="${pageContext.request.contextPath}/VoirProfilServlet?sellerId=${article.getVendeur().getNoUtilisateur()}" class="">Vendeur : ${article.getVendeur().getPseudo()}</a></p>

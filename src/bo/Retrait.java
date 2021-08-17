@@ -8,7 +8,6 @@ public class Retrait
 	private ArticleVendu articleVendu;
 	
 	public Retrait(String rue, String codePostal, String ville, ArticleVendu articleVendu) {
-		super();
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
