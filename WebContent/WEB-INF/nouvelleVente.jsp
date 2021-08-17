@@ -17,7 +17,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col pt-5">
-					<form method="post" action="${pageContext.request.contextPath}/ValidationModifProfilServlet">
+					<form method="post" action="${pageContext.request.contextPath}/EnregistrerNouvelleVenteServlet">
 						
 						<table class="ml-auto mr-auto">
 							<tr>

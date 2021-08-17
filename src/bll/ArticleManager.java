@@ -1,5 +1,7 @@
 package bll;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -116,9 +118,12 @@ public class ArticleManager {
 		articleDao.insert(article);
 	}
 	
-	public ArticleVendu verifArticle(int noArticle, String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres, 
-			String miseAPrix, String categorie, Utilisateur user,Utilisateur vendeur, String rue, String cp, String ville ) 
+	public ArticleVendu verifArticle(int noArticle, String nomArticle, String description, String dateDebutEncheres, String dateFinEncheres, 
+			String miseAPrix, String categorie, Utilisateur user,Utilisateur acheteur, String rue, String cp, String ville ) throws ParseException 
 	{
+		
+		Date dateDebut=null;
+		Date dateFin=null;
 		ArticleVendu article=null;
 		boolean value=true;
 		int miseAPrix1=0;
@@ -129,12 +134,21 @@ public class ArticleManager {
 		if (description.isEmpty()) {
 			value=false;	
 		}
-		if (dateDebutEncheres==null) {
+		if (dateDebutEncheres.isEmpty()) {
 			value=false;
 		}
-		if (dateFinEncheres==null) {
+		else
+		{
+			dateDebut=new SimpleDateFormat("yyyy-MM-dd").parse(dateDebutEncheres);
+		}
+		
+		if (dateFinEncheres.isEmpty()) {
 			value=false;
 		}
+		else {
+			dateFin=new SimpleDateFormat("yyyy-MM-dd").parse(dateFinEncheres);
+		}
+		
 		if (miseAPrix.isEmpty()) {
 			value=false;
 		}
@@ -153,12 +167,9 @@ public class ArticleManager {
 		if (user==null) {
 			value=false;
 		}
-		if (vendeur==null) {
-			value=false;		
-		}
-		if (rue.isEmpty()) {
-			value=false;
-		}
+//		if (rue.isEmpty()) {
+//			value=false;
+//		}
 		if (cp.isEmpty()) {
 			value=false;
 		}
@@ -167,8 +178,8 @@ public class ArticleManager {
 		}
 		if (value) {
 			
-			article=new ArticleVendu(0, nomArticle, description, dateDebutEncheres, dateFinEncheres, miseAPrix1, miseAPrix1, 
-					new Category(categ, null), new Retrait(rue, cp, ville), user,null);
+			article=new ArticleVendu(0, nomArticle, description, dateDebut, dateFin, miseAPrix1, miseAPrix1, 
+					new Category(categ, null), new Retrait(rue, cp, ville), user,acheteur);
 		}
 		
 		return article;

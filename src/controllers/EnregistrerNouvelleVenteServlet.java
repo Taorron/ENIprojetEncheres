@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bll.ArticleManager;
+import bll.CategoryManager;
 import bo.ArticleVendu;
 import bo.Category;
 import bo.Retrait;
@@ -45,8 +47,8 @@ public class EnregistrerNouvelleVenteServlet extends HttpServlet {
 			String description=request.getParameter("description");
 			String categorie=request.getParameter("category");
 			String miseAPrix=request.getParameter("prix");
-			Date dateDebutEncheres=new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dateDebut"));
-			Date dateFinEncheres=new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dateFin"));
+			String dateDebutEncheres=request.getParameter("dateDebut");
+			String dateFinEncheres=request.getParameter("dateFin");
 			String rue=request.getParameter("rue");
 			String cp=request.getParameter("cp");
 			String ville=request.getParameter("ville");
@@ -60,11 +62,14 @@ public class EnregistrerNouvelleVenteServlet extends HttpServlet {
 			if (article!=null) 
 			{
 				articleManager.saveArticle(article);
-				RequestDispatcher rd = request.getRequestDispatcher(request.getContextPath()+"/IndexServlet");
+				RequestDispatcher rd = request.getRequestDispatcher("/IndexServlet");
 				rd.forward(request, response);
 			}
 			else
 			{
+				CategoryManager categoryManager = new CategoryManager();
+				List<Category> categories = categoryManager.select(null, null);
+				request.setAttribute("categories", categories);
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/nouvelleVente.jsp");
 				rd.forward(request, response);
 			}
