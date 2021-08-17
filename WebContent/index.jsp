@@ -20,8 +20,8 @@
 					<div class="col-lg">
 					  <div class="form-group">
 					    <label for="inputResherch">filtres : </label>
-					    <input type="email" class="form-control" id="inputResherch" name ="inputResherch" aria-describedby="emailHelp" placeholder="Le nom de l'article contient">
-					    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+					    <input type="text" class="form-control" id="inputResherch" name ="inputResherch" aria-describedby="resherch" placeholder="Le nom de l'article contient">
+					    <small id="resherch" class="form-text text-muted">We'll never share your email with anyone else.</small>
 					  	<br>
 					  	<label for=category-select>Categorie : </label>
 					  	<select name="category" id="category-select">
