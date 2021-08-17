@@ -37,24 +37,47 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		//Session attribute
 		HttpSession session=request.getSession();
 		Object attribute = session.getAttribute("user");
 		
+		//Requestt parameter
 		String disconnect = request.getParameter("disconnect");
+		String resherchName = request.getParameter("inputResherch");
+		String resherchCategory = request.getParameter("category");
+		String encheresOuvertes = request.getParameter("encheresOuvertes");
+		String mesEncheresEnCours = request.getParameter("mesEncheresEnCours");
+		String mesEncheresRemportees = request.getParameter("mesEncheresRemportees");
+		String mesVentesEnCours = request.getParameter("mesVentesEnCours");
+		String ventesNonDebute = request.getParameter("ventesNonDebute");
+		String ventesTerminees = request.getParameter("ventesTerminees");
+		String resherchVentes = request.getParameter("ventes");
+		String resherchAchats = request.getParameter("achats");
+		
+		//Disconnect user
 		if (attribute != null && disconnect != null) 
 		{
 			System.out.println("Deconnection de l'utilisateur id "+((Utilisateur)(attribute)).getNoUtilisateur() );
 			session.invalidate();
 		}
 		
+		//Get CategoryList
 		CategoryManager categoryManager = new CategoryManager();
 		List<Category> categories = categoryManager.select(null, null);
+		request.setAttribute("categories", categories);
 		
+		//Get ArticleList
 		ArticleManager articleManager = new ArticleManager();
-		List<ArticleVendu> articles = articleManager.getArticlesBidding();
+		
+		Utilisateur user = (attribute != null) ? (Utilisateur) attribute : null;
+
+		List<ArticleVendu> articles = articleManager.getArticlesBidding(
+				user, resherchName, resherchCategory, encheresOuvertes,mesEncheresEnCours,
+				mesEncheresRemportees,mesVentesEnCours,	ventesNonDebute, 
+				ventesTerminees, resherchVentes, resherchAchats);
 		
 		System.out.println("nb enchere en cours : "+articles.size());
-		request.setAttribute("categories", categories);
+		
 		request.setAttribute("articles", articles);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
