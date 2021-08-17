@@ -40,15 +40,115 @@ public class ArticleManager {
 		return result;
 	}
 	
-	public List<ArticleVendu> getArticlesBidding(){
+	public List<ArticleVendu> getArticlesBidding(Utilisateur user, String resherchName, String resherchCategory, String encheresOuvertes,
+			String mesEncheresEnCours, String mesEncheresRemportees, String mesVentesEnCours,
+			String ventesNonDebute, String ventesTerminees, String resherchVentes, String resherchAchats) {
 		List<ArticleVendu> result = new ArrayList<ArticleVendu>();
-		
 		List<ArticleVendu> allArticles = getArticles();
+		boolean haveFilter = false;
 		
-		for (ArticleVendu articleVendu : allArticles) {
-			if(articleVendu.getEtatVente() == EtatVente.ENCOURS) {
-				result.add(articleVendu);
+		for (ArticleVendu articleVendu : allArticles) {	
+			
+			if(resherchName != null) {
+				if(!resherchName.isEmpty()) {
+					haveFilter = true;
+					if(!articleVendu.getNomArticle().contains(resherchName)) {
+						continue;
+					}
+				}
 			}
+					
+			if(resherchCategory != null) {
+				if(!resherchCategory.isEmpty()) {
+					haveFilter = true;
+					if(articleVendu.getCategorie().getNoCategorie() != Integer.parseInt(resherchCategory)) {
+						continue;
+					}
+				}
+			}
+			
+			if(resherchVentes != null) {	
+				
+				if(mesVentesEnCours != null) {	
+					if(!mesVentesEnCours.isEmpty()) {
+						haveFilter = true;
+						if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() &&
+								articleVendu.getEtatVente() != EtatVente.ENCOURS) {
+							continue;
+						}
+					}
+				}
+				
+				if(ventesNonDebute != null) {	
+					if(ventesNonDebute != null) {	
+						if(!ventesNonDebute.isEmpty()) {
+							haveFilter = true;
+							if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() &&
+									articleVendu.getEtatVente() != EtatVente.NONDEBUTER) {
+								continue;
+							}
+						}
+					}
+				}
+				
+				if(ventesTerminees != null) {	
+					if(ventesTerminees != null) {	
+						if(!ventesTerminees.isEmpty()) {
+							haveFilter = true;
+							if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() &&
+									articleVendu.getEtatVente() != EtatVente.TERMINER) {
+								continue;
+							}
+						}
+					}
+				}
+			}
+			
+			
+			if(resherchAchats != null) {	
+				
+				if(encheresOuvertes != null) {
+					if(!encheresOuvertes.isEmpty()) {
+						haveFilter = true;
+						if(articleVendu.getEtatVente() != EtatVente.ENCOURS) {
+							continue;
+						}
+					}
+				}
+						
+				if(mesEncheresEnCours != null) {	
+					if(!mesEncheresEnCours.isEmpty()) {
+						haveFilter = true;
+						boolean enchereOnArticle = false;
+						for (Enchere enchere : articleVendu.getEnchere()) {
+							if(enchere.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+								enchereOnArticle = true;
+							}
+						}
+						if(enchereOnArticle == false) {
+							continue;
+						}
+					}
+				}
+				
+				if(mesEncheresRemportees != null) {	
+					if(!mesEncheresRemportees.isEmpty()) {	
+						haveFilter = true;
+						if(articleVendu.getAcheteur().getNoUtilisateur() == user.getNoUtilisateur()) {
+							continue;
+						}
+					}
+				}
+			}
+			
+			//Si on a aucun filtre, on souhaite par defaut voir tout les articles avec des enchères en cours
+			if(haveFilter) {
+				result.add(articleVendu);
+			} else {
+				if(articleVendu.getEtatVente() == EtatVente.ENCOURS) {
+					result.add(articleVendu);
+				}
+			}	
 		}
 		
 		return result;
