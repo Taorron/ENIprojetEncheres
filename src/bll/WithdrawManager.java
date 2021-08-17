@@ -3,6 +3,7 @@ package bll;
 import java.util.ArrayList;
 import java.util.List;
 
+import bo.ArticleVendu;
 import bo.Retrait;
 import dal.DALException;
 import dal.DAOFactory;
@@ -35,6 +36,10 @@ public class WithdrawManager {
 		}
 		
 		return retrait;
+	}
+	public void insert(Retrait retrait) throws DALException
+	{
+		withdrawDao.insert(retrait);
 	}
 	
 }

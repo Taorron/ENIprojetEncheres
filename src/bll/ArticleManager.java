@@ -164,6 +164,7 @@ public class ArticleManager {
 		try {
 			
 			List<ArticleVendu> list = articleDao.select(no_article, null, null, null, null, null, null, null, null);
+			setInfo(list);
 			if(!list.isEmpty()) {
 				result = list.get(0);
 			}
@@ -216,6 +217,8 @@ public class ArticleManager {
 	public void saveArticle(ArticleVendu article) throws Exception
 	{
 		articleDao.insert(article);
+		WithdrawManager withdrawManager = new WithdrawManager();
+		withdrawManager.insert(article.getRetrait());
 	}
 	
 	public ArticleVendu verifArticle(int noArticle, String nomArticle, String description, String dateDebutEncheres, String dateFinEncheres, 
