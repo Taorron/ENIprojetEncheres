@@ -34,7 +34,7 @@ public class AfficherVente extends HttpServlet {
 		// TODO Auto-generated method stub
 		String IdVente = request.getParameter("IdVente");
 		ArticleManager articleManager = new ArticleManager();
-		ArticleVendu article = articleManager.getArticleById(Integer.parseInt(IdVente));
+		ArticleVendu article = articleManager.getArticleById(Integer.parseInt(IdVente), true);
 		request.setAttribute("article", article);
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/afficherArticle.jsp");
 		rd.forward(request, response);

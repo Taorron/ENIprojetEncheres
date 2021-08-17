@@ -66,7 +66,7 @@ public class BidManager {
 		ArticleManager articleManager = new ArticleManager();
 		for (Enchere enchere : result) {
 			enchere.setUtilisateur(userManager.getUserById(enchere.getUtilisateur().getNoUtilisateur()));
-			enchere.setArticleVendu(articleManager.getArticleById(enchere.getArticleVendu().getNoArticle()));
+			enchere.setArticleVendu(articleManager.getArticleById(enchere.getArticleVendu().getNoArticle(), false));
 		}
 	}
 }

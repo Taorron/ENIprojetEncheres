@@ -159,12 +159,15 @@ public class ArticleManager {
 		
 	}
 	
-	public ArticleVendu getArticleById(int no_article) {
+	public ArticleVendu getArticleById(int no_article, boolean wantSetInfo) {
 		ArticleVendu result = null;		
 		try {
 			
 			List<ArticleVendu> list = articleDao.select(no_article, null, null, null, null, null, null, null, null);
-			setInfo(list);
+			if(wantSetInfo) {
+				setInfo(list);
+			}
+			
 			if(!list.isEmpty()) {
 				result = list.get(0);
 			}
