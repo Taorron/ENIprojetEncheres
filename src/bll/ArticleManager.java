@@ -57,7 +57,7 @@ public class ArticleManager {
 			if(resherchName != null) {
 				if(!resherchName.isEmpty()) {
 					haveFilter = true;
-					if(!articleVendu.getNomArticle().contains(resherchName)) {
+					if(!articleVendu.getNomArticle().toLowerCase().contains(resherchName.toLowerCase())) {
 						continue;
 					}
 				}
@@ -77,7 +77,7 @@ public class ArticleManager {
 				if(mesVentesEnCours != null) {	
 					if(!mesVentesEnCours.isEmpty()) {
 						haveFilter = true;
-						if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() &&
+						if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() ||
 								articleVendu.getEtatVente() != EtatVente.ENCOURS) {
 							continue;
 						}
@@ -88,7 +88,7 @@ public class ArticleManager {
 					if(ventesNonDebute != null) {	
 						if(!ventesNonDebute.isEmpty()) {
 							haveFilter = true;
-							if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() &&
+							if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() ||
 									articleVendu.getEtatVente() != EtatVente.NONDEBUTER) {
 								continue;
 							}
@@ -100,7 +100,7 @@ public class ArticleManager {
 					if(ventesTerminees != null) {	
 						if(!ventesTerminees.isEmpty()) {
 							haveFilter = true;
-							if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() &&
+							if(articleVendu.getVendeur().getNoUtilisateur() != user.getNoUtilisateur() ||
 									articleVendu.getEtatVente() != EtatVente.TERMINER) {
 								continue;
 							}
