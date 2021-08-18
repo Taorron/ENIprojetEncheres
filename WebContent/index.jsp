@@ -15,7 +15,7 @@
 	<h2 class="text-center mt-5">Liste des enchères</h2>
 	
 	<div class="container mt-5">
-		<form method="get" action="#">
+		<form method="get" action="${pageContext.request.contextPath}/IndexServlet">
 			<div class="row">
 					<div class="col-lg">
 					  <div class="form-group">
@@ -25,6 +25,7 @@
 					  	<br>
 					  	<label for=category-select>Categorie : </label>
 					  	<select name="category" id="category-select">
+					  		<option value="">---</option>
 							<c:forEach var="categorie" items="${categories}">
 								<option value="${categorie.getNoCategorie()}">${categorie.getLibelle()}</option>
 							</c:forEach>
@@ -35,14 +36,14 @@
 					    <c:if test="${user!=null}">
 						    <div class="row">
 						    	<div class="col">
-							    	<input id="achats" type="radio"><label for="achats"> Achats</label><br>
+							    	<input id="achats" name="achats" type="radio" value="achats"><label for="achats"> Achats</label><br>
 									<input id="encheresOuvertes" name="encheresOuvertes" type="checkbox"><label for="encheresOuvertes"> enchères ouvertes</label><br>
 									<input id="mesEncheresEnCours" name="mesEncheresEnCours" type="checkbox"><label for="mesEncheresEnCours"> mes enchères en cours</label><br>
 									<input id="mesEncheresRemportees" name="mesEncheresRemportees" type="checkbox"><label for="mesEncheresRemportees"> mes enchères remportées</label><br>
 						    	</div>
 						    	
 						    	<div class="col">
-							    	<input id="ventes" type="radio"><label for="ventes"> Mes ventes</label><br>
+							    	<input id="ventes" name="ventes" type="radio" value="ventes"><label for="ventes"> Mes ventes</label><br>
 									<input id="mesVentesEnCours" name="mesVentesEnCours" type="checkbox"><label for="mesVentesEnCours">mes ventes en cours</label><br>
 									<input id="ventesNonDebute" name="ventesNonDebute" type="checkbox"><label for="ventesNonDebute">ventes non débutées</label><br>
 									<input id="ventesTerminees" name="ventesTerminees" type="checkbox"><label for="ventesTerminees">ventes terminées</label><br>
