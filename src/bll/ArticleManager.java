@@ -51,7 +51,8 @@ public class ArticleManager {
 		List<ArticleVendu> allArticles = getArticles();
 		boolean haveFilter = false;
 		
-		for (ArticleVendu articleVendu : allArticles) {	
+		for (ArticleVendu articleVendu : allArticles) 
+		{	
 			
 			if(resherchName != null) {
 				if(!resherchName.isEmpty()) {
@@ -123,22 +124,33 @@ public class ArticleManager {
 				if(mesEncheresEnCours != null) {	
 					if(!mesEncheresEnCours.isEmpty()) {
 						haveFilter = true;
-						boolean enchereOnArticle = false;
-						for (Enchere enchere : articleVendu.getEnchere()) {
-							if(enchere.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
-								enchereOnArticle = true;
+						if(articleVendu.getEtatVente() == EtatVente.ENCOURS) {
+							boolean enchereOnArticle = false;
+							for (Enchere enchere : articleVendu.getEnchere()) {
+								if(enchere.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+									enchereOnArticle = true;
+									break;
+								}
 							}
-						}
-						if(enchereOnArticle == false) {
+							if(enchereOnArticle == false) {
+								continue;
+							}
+						} else {
 							continue;
 						}
+						
 					}
 				}
 				
 				if(mesEncheresRemportees != null) {	
 					if(!mesEncheresRemportees.isEmpty()) {	
 						haveFilter = true;
-						if(articleVendu.getAcheteur().getNoUtilisateur() == user.getNoUtilisateur()) {
+						if(articleVendu.getAcheteur() != null) {
+							if(articleVendu.getAcheteur().getNoUtilisateur() != user.getNoUtilisateur() &&
+									articleVendu.getEtatVente() != EtatVente.TERMINER) {
+								continue;
+							}
+						} else {
 							continue;
 						}
 					}
@@ -191,6 +203,7 @@ public class ArticleManager {
 			articleVendu.setVendeur(userManager.getUserById(articleVendu.getVendeur().getNoUtilisateur()));
 			articleVendu.setRetrait(withdrawManager.getRetraitByArticleId(no_article));
 			articleVendu.setEnchere((ArrayList<Enchere>)(bidManager.getEncheresByArticle(no_article)));
+			
 			
 			findBuyerAndSetSellPrice(articleVendu);
 			System.out.println("Fin setInfo");
