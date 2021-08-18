@@ -36,17 +36,17 @@
 					    <c:if test="${user!=null}">
 						    <div class="row">
 						    	<div class="col">
-							    	<input id="achats" name="achats" type="radio" value="achats"><label for="achats"> Achats</label><br>
-									<input id="encheresOuvertes" name="encheresOuvertes" type="checkbox"><label for="encheresOuvertes"> enchères ouvertes</label><br>
+							    	<input id="achats" name="achats" type="radio" value="achats" checked><label for="achats"> Achats</label><br>
+									<input id="encheresOuvertes" name="encheresOuvertes" type="checkbox" checked><label for="encheresOuvertes"> enchères ouvertes</label><br>
 									<input id="mesEncheresEnCours" name="mesEncheresEnCours" type="checkbox"><label for="mesEncheresEnCours"> mes enchères en cours</label><br>
 									<input id="mesEncheresRemportees" name="mesEncheresRemportees" type="checkbox"><label for="mesEncheresRemportees"> mes enchères remportées</label><br>
 						    	</div>
 						    	
 						    	<div class="col">
 							    	<input id="ventes" name="ventes" type="radio" value="ventes"><label for="ventes"> Mes ventes</label><br>
-									<input id="mesVentesEnCours" name="mesVentesEnCours" type="checkbox"><label for="mesVentesEnCours">mes ventes en cours</label><br>
-									<input id="ventesNonDebute" name="ventesNonDebute" type="checkbox"><label for="ventesNonDebute">ventes non débutées</label><br>
-									<input id="ventesTerminees" name="ventesTerminees" type="checkbox"><label for="ventesTerminees">ventes terminées</label><br>
+									<input id="mesVentesEnCours" name="mesVentesEnCours" type="checkbox" disabled><label for="mesVentesEnCours">mes ventes en cours</label><br>
+									<input id="ventesNonDebute" name="ventesNonDebute" type="checkbox" disabled><label for="ventesNonDebute">ventes non débutées</label><br>
+									<input id="ventesTerminees" name="ventesTerminees" type="checkbox" disabled><label for="ventesTerminees">ventes terminées</label><br>
 						    	</div>
 						    </div>
 						</c:if>
