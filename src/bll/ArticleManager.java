@@ -291,6 +291,19 @@ public class ArticleManager {
 		
 		return article;
 	}
+	public boolean ifModif(Utilisateur user, ArticleVendu article)
+	{
+		boolean verif=true;
+		if (user.getNoUtilisateur()!=article.getVendeur().getNoUtilisateur()) 
+		{
+			verif=false;
+		}
+		if (article.getDateDebutEncheres().before(new Date())) {
+			verif=false;
+		}
+		return verif;
+		
+	}
 	
 	
 }
