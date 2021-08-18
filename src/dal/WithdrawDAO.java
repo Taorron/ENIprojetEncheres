@@ -7,7 +7,7 @@ import bo.Retrait;
 public interface WithdrawDAO {
 	
 	static final String SELECT_WITHDRAW = "SELECT * FROM RETRAITS WHERE no_article is not null ";
-	static final String INSERT_WITHDRAW = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) value(?,?,?,?)";
+	static final String INSERT_WITHDRAW = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) values(?,?,?,?)";
 	
 	
 	

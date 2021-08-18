@@ -234,6 +234,7 @@ public class ArticleManager {
 	{
 		articleDao.insert(article);
 		WithdrawManager withdrawManager = new WithdrawManager();
+		article.getRetrait().setArticleVendu(article);
 		withdrawManager.insert(article.getRetrait());
 	}
 	
@@ -302,6 +303,19 @@ public class ArticleManager {
 		}
 		
 		return article;
+	}
+	public boolean ifModif(Utilisateur user, ArticleVendu article)
+	{
+		boolean verif=true;
+		if (user.getNoUtilisateur()!=article.getVendeur().getNoUtilisateur()) 
+		{
+			verif=false;
+		}
+		if (article.getDateDebutEncheres().before(new Date())) {
+			verif=false;
+		}
+		return verif;
+		
 	}
 	
 	

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="import/import.jsp" %>
 <%@ page import="bo.*"%>
+<%@ page import="java.util.Date"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -65,16 +66,34 @@
 								<td> <label for="retrait">Vendeur : </label></td>
 								<td><div class="" name="retrait" id="retrait"><a href="${pageContext.request.contextPath}/VoirProfilServlet?sellerId=${article.getVendeur().getNoUtilisateur()}">${article.getVendeur().getPseudo()}</a></div> </td>
 							</tr>
+							<c:if test="${user.getNoUtilisateur()!=null}">
+								<c:choose>
+									<c:when test="${user.getNoUtilisateur()!= article.getVendeur().getNoUtilisateur()}">
+										<c:if test="${article.getDateDebutEncheres().before(date)&&article.getDateFinEncheres().after(date)}">
+											<tr>
+												<td><label for="proposition">Ma proposition : </label></td>
+												<td><input type="number" class="form-control" name="proposition" id="proposition"></td>
+											</tr>
+											<tr><td><button class="btn btn-primary" type="submit">Encherir</button></td></tr>
+										</c:if>
+									</c:when>
+									<c:otherwise>
+										<c:if test="${article.getDateFinEncheres().before(date)&&article.getAcheteur()!=null}">
+											<a href="#"><button class="btn btn-primary" type="button">Retrait effectué</button></a>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+							
 							
 							
 						</table>
 
-						<button class="btn btn-primary" type="submit">Enregistrer</button>
 					</form>				
 				</div>
 				
 			</div>
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/RedirectIndexServlet">
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/IndexServlet">
 						Annuler
 					</a>
 		</div>
