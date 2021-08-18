@@ -92,7 +92,7 @@ public class WithdrawDAOJdbcImpl implements WithdrawDAO{
 		
 		try {
 			cnx = JdbcTools.getConnection();
-			PreparedStatement rqt = cnx.prepareStatement(INSERT_WITHDRAW,PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement rqt = cnx.prepareStatement(INSERT_WITHDRAW);
 			rqt.setInt(1, retrait.getArticleVendu().getNoArticle());
 			rqt.setString(2, retrait.getRue());
 			rqt.setString(3, retrait.getCodePostal());

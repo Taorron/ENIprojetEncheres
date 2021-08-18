@@ -221,6 +221,7 @@ public class ArticleManager {
 	{
 		articleDao.insert(article);
 		WithdrawManager withdrawManager = new WithdrawManager();
+		article.getRetrait().setArticleVendu(article);
 		withdrawManager.insert(article.getRetrait());
 	}
 	
