@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -92,9 +94,29 @@ public class BidDAOJdbcImpl implements BidDAO {
 	}
 
 	@Override
-	public Enchere insert(Enchere enchere) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+	public void insert(Enchere enchere) throws Exception {
+		
+		Connection cnx = null;
+		
+		LocalDate dateFinEnchere = enchere.getDateEnchère().toInstant()
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
+		
+		try {
+			cnx = JdbcTools.getConnection();
+			PreparedStatement rqt = cnx.prepareStatement(INSERT_ENCHERE);
+			
+			rqt.setInt(1,enchere.getUtilisateur().getNoUtilisateur());
+			rqt.setInt(2, enchere.getArticleVendu().getNoArticle());
+			rqt.setDate(3, java.sql.Date.valueOf(dateFinEnchere));
+			rqt.setInt(4, enchere.getMontantEnchere());
+			
+			rqt.executeUpdate();
+			
+		} catch (SQLException e) {
+			//propager une exception personnalisée
+			throw new Exception("Problème d'ajout d'un enchere en base. Cause : " + e.getMessage());
+		}
 	}
 
 	@Override
