@@ -185,17 +185,15 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		try(Connection connexion = JdbcTools.getConnection();
 				PreparedStatement prpStmt = connexion.prepareStatement(UPDATE_ARTICLE);){
 			
-			System.out.println( article.getNomArticle() );
-			System.out.println(article.getDescription());
-			System.out.println(dateDebutEnchere);
-			System.out.println(dateFinEnchere);
-			System.out.println(article.getMiseAPrix());
-			System.out.println(article.getPrixVente());
-			System.out.println(article.getVendeur().getNoUtilisateur());
-			System.out.println(article.getCategorie().getNoCategorie());
-			System.out.println(article.getNoArticle());
-			
-			
+//			System.out.println( article.getNomArticle() );
+//			System.out.println(article.getDescription());
+//			System.out.println(dateDebutEnchere);
+//			System.out.println(dateFinEnchere);
+//			System.out.println(article.getMiseAPrix());
+//			System.out.println(article.getPrixVente());
+//			System.out.println(article.getVendeur().getNoUtilisateur());
+//			System.out.println(article.getCategorie().getNoCategorie());
+//			System.out.println(article.getNoArticle());
 			
 			prpStmt.setString(1,article.getNomArticle());
 			prpStmt.setString(2,article.getDescription());
