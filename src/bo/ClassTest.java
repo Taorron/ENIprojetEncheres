@@ -9,6 +9,7 @@ import bll.ArticleManager;
 import dal.UserDAO;
 import dal.WithdrawDAO;
 import dal.ArticleDAO;
+import dal.BidDAO;
 import dal.CategoryDAO;
 import dal.DAOFactory;
 
@@ -18,6 +19,7 @@ public class ClassTest {
 	private static CategoryDAO categoryDao = DAOFactory.getCategoryDAO();
 	private static WithdrawDAO withdrawDao = DAOFactory.getWithdrawDAO();
 	private static ArticleDAO articleDao = DAOFactory.getArticleDAO();
+	private static BidDAO bidDao = DAOFactory.getBidDAO();
 	
 	static ArticleManager articleManager = new ArticleManager();
 	
@@ -77,8 +79,8 @@ public class ClassTest {
 //		List<ArticleVendu> listArticle = articleManager.getArticles();
 		
 		//Test Insert Article
-//		Instant now = Instant.now();
-//		Instant yesterday = now.minus(1, ChronoUnit.DAYS);
+		Instant now = Instant.now();
+		Instant yesterday = now.minus(1, ChronoUnit.DAYS);
 //		
 //		ArticleVendu testArticle = new ArticleVendu(
 //				0,
@@ -96,8 +98,23 @@ public class ClassTest {
 //		System.out.println(testRetour.getNoArticle() + " " + testRetour.getNomArticle());
 		
 		//
-	
-	
+		
+		bidDao.insert(new Enchere
+				(Date.from(yesterday),
+				40,
+				new Utilisateur(4, "",null, null, null, null, null, null, null, null, 0, false),
+				new ArticleVendu(
+						4,
+						"LebelArticle",
+						"Magnifique Description",
+						 Date.from(yesterday),
+						 Date.from(now),
+						 5,
+						 0,
+						 new Category(1,"BelArticle"),
+						 new Utilisateur(1, "",null, null, null, null, null, null, null, null, 0, false)
+						)
+				));
 	
 	}
 	
