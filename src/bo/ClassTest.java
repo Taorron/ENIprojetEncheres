@@ -82,39 +82,41 @@ public class ClassTest {
 		Instant now = Instant.now();
 		Instant yesterday = now.minus(1, ChronoUnit.DAYS);
 //		
-//		ArticleVendu testArticle = new ArticleVendu(
-//				0,
-//				"LebelArticle",
-//				"Magnifique Description",
-//				 Date.from(yesterday),
-//				 Date.from(now),
-//				 5,
-//				 0,
-//				 new Category(1,"BelArticle"),
-//				 new Utilisateur(1, "",null, null, null, null, null, null, null, null, 0, false)
-//				);
+		ArticleVendu testArticle = new ArticleVendu(
+				8,
+				"LebelArticle",
+				"Magnifique Description",
+				 Date.from(yesterday),
+				 Date.from(now),
+				 5,
+				 0,
+				 new Category(1,"BelArticle"),
+				 new Utilisateur(6, "",null, null, null, null, null, null, null, null, 0, false)
+				);
 //		
 //		ArticleVendu testRetour = articleDao.insert(testArticle);
 //		System.out.println(testRetour.getNoArticle() + " " + testRetour.getNomArticle());
 		
 		//
+//		
+//		bidDao.insert(new Enchere
+//				(Date.from(yesterday),
+//				40,
+//				new Utilisateur(4, "",null, null, null, null, null, null, null, null, 0, false),
+//				new ArticleVendu(
+//						4,
+//						"LebelArticle",
+//						"Magnifique Description",
+//						 Date.from(yesterday),
+//						 Date.from(now),
+//						 5,
+//						 0,
+//						 new Category(1,"BelArticle"),
+//						 new Utilisateur(1, "",null, null, null, null, null, null, null, null, 0, false)
+//						)
+//				));
 		
-		bidDao.insert(new Enchere
-				(Date.from(yesterday),
-				40,
-				new Utilisateur(4, "",null, null, null, null, null, null, null, null, 0, false),
-				new ArticleVendu(
-						4,
-						"LebelArticle",
-						"Magnifique Description",
-						 Date.from(yesterday),
-						 Date.from(now),
-						 5,
-						 0,
-						 new Category(1,"BelArticle"),
-						 new Utilisateur(1, "",null, null, null, null, null, null, null, null, 0, false)
-						)
-				));
+		articleDao.update(testArticle);
 	
 	}
 	

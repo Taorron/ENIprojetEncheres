@@ -15,6 +15,12 @@ public interface ArticleDAO {
 			+ "(nom_article, [description], date_debut_encheres, date_fin_encheres, prix_initial, "
 			+ "prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?)";
 	
+	static final String UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS "
+			+ "SET nom_article = ?, [description] = ?, date_debut_encheres = ?,"
+			+ " date_fin_encheres = ?, prix_initial = ?, prix_vente = ?,"
+			+ " no_utilisateur = ?, no_categorie = ?"
+			+ " WHERE no_article = ?";
+	
 	public List<ArticleVendu> select(Integer noArticle, String nomArticle, String description,
 			Date dateDebutEncheres, Date dateFinEncheres, Integer miseAPrix, Integer prixVente,
 			Integer categorie, Integer vendeur) throws DALException;

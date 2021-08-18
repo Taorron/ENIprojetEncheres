@@ -173,8 +173,47 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
 	@Override
 	public void update(ArticleVendu article) throws DALException {
-		// TODO Auto-generated method stub
 		
+		
+		LocalDate dateDebutEnchere = article.getDateDebutEncheres().toInstant()
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
+		LocalDate dateFinEnchere = article.getDateFinEncheres().toInstant()
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
+		
+		try(Connection connexion = JdbcTools.getConnection();
+				PreparedStatement prpStmt = connexion.prepareStatement(UPDATE_ARTICLE);){
+			
+			System.out.println( article.getNomArticle() );
+			System.out.println(article.getDescription());
+			System.out.println(dateDebutEnchere);
+			System.out.println(dateFinEnchere);
+			System.out.println(article.getMiseAPrix());
+			System.out.println(article.getPrixVente());
+			System.out.println(article.getVendeur().getNoUtilisateur());
+			System.out.println(article.getCategorie().getNoCategorie());
+			System.out.println(article.getNoArticle());
+			
+			
+			
+			prpStmt.setString(1,article.getNomArticle());
+			prpStmt.setString(2,article.getDescription());
+			prpStmt.setDate(3,java.sql.Date.valueOf(dateDebutEnchere));
+			prpStmt.setDate(4,java.sql.Date.valueOf(dateFinEnchere));
+			prpStmt.setInt(5, article.getMiseAPrix());
+			prpStmt.setInt(6, article.getPrixVente());
+			prpStmt.setInt(7, article.getVendeur().getNoUtilisateur());
+			prpStmt.setInt(8, article.getCategorie().getNoCategorie());
+			prpStmt.setInt(9, article.getNoArticle());
+			
+			prpStmt.executeUpdate();
+			
+			System.out.println("Success update article id : " + article.getNoArticle());
+			
+		}catch (SQLException e) {
+			throw new DALException("erreur update, article id : " + article.getNoArticle() + e.getMessage());
+		}	
 	}
 
 	@Override
