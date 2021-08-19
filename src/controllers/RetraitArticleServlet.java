@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +33,8 @@ public class RetraitArticleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = null;
+		
 		String idArticle = request.getParameter("idArticle");
 		HttpSession session=request.getSession();
 		Object attribute = session.getAttribute("user");
@@ -49,11 +53,15 @@ public class RetraitArticleServlet extends HttpServlet {
 		
 		if(result) {
 			//Redirection home servlet avec un ptit message qui dit que c'est cool
-			
+			request.setAttribute("success", "Vous avez vendu votre article et vous avez été crédité !");
+			rd = request.getRequestDispatcher("/IndexServlet");
 		}else{
 			//Pop-up erreur
-			
+			request.setAttribute("error", "Une erreur est survenue");
+			rd = request.getRequestDispatcher("/AfficherVente");
 		}
+		
+		rd.forward(request, response);
 		
 	}
 
