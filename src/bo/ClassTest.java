@@ -82,11 +82,12 @@ public class ClassTest {
 		Instant now = Instant.now();
 		Instant yesterday = now.minus(1, ChronoUnit.DAYS);
 //		
+		Date test = new Date();
 		ArticleVendu testArticle = new ArticleVendu(
 				8,
 				"LebelArticle",
 				"Magnifique Description",
-				 Date.from(yesterday),
+				 test,
 				 Date.from(now),
 				 5,
 				 0,
