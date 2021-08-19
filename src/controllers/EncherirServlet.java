@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bll.BidManager;
+import bo.Utilisateur;
+
 /**
  * Servlet implementation class EncherirServlet
  */
@@ -39,7 +42,23 @@ public class EncherirServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		Object attribute = session.getAttribute("user");
+		Utilisateur user = (attribute != null) ? (Utilisateur) attribute : null;
+				
+		String articleId = request.getParameter("id");
+		String bidPrice = request.getParameter("proposition");
+		BidManager bidManager = new BidManager();
 		
+		String result = null;
+		try {
+			result = bidManager.insertEnchere(articleId, bidPrice, user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = "Une erreur est survenue";
+		}
+		
+		session.setAttribute("user", user);
+		request.setAttribute("result", result);
 		RequestDispatcher rd = request.getRequestDispatcher("IndexServlet");
 		rd.forward(request, response);
 	}
