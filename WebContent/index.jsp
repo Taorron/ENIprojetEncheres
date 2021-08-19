@@ -19,6 +19,12 @@
 	</div>
 </c:if>
 
+<c:if test="${result != null }">
+	<div class="alert alert-info" role="alert">
+  		${result}
+	</div>
+</c:if>
+
 	<h2 class="text-center mt-5">Liste des enchères</h2>
 	
 	<div class="container mt-5">
