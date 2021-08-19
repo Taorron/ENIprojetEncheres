@@ -313,6 +313,12 @@ public class UserManager {
 	{
 		userDao.delete(noUser);
 	}
+	
+	public void AddCredit(Utilisateur user, int credit) throws DALException {
+		user.setCredit(user.getCredit()+credit);
+		
+		userDao.update(user);
+	}
 
 	
 	
