@@ -12,6 +12,13 @@
 </head>
 <body>
 <%@include file="WEB-INF/import/header.jsp" %>
+
+<c:if test="${success != null }">
+	<div class="alert alert-success" role="alert">
+  		${success}
+	</div>
+</c:if>
+
 	<h2 class="text-center mt-5">Liste des enchères</h2>
 	
 	<div class="container mt-5">
