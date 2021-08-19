@@ -18,9 +18,16 @@
 		
 		<div class="container">
 			<div class="row">
+			<c:if test="${error != null}">
+				<div class="alert alert-danger" role="alert">
+				 	${error}
+				</div>
+			</c:if>
+			
+			
 				<div class="col pt-5">
-					<form method="post" action="#">
-						
+					<form method="post" action="EncherirServlet">
+						<input type="hidden" name="id" id="id" value="${article.getNoArticle()}">
 						<table class="ml-auto mr-auto">
 							<tr>
 								<td> <label for="article">Article : </label> </td>
