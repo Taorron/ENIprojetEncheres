@@ -66,6 +66,8 @@ public class ModifierVenteServlet extends HttpServlet {
 			{
 				CategoryManager categoryManager = new CategoryManager();
 				List<Category> categories = categoryManager.select(null, null);
+				ArticleVendu articleById = articleManager.getArticleById(Integer.parseInt(id), true);
+				request.setAttribute("article", articleById);
 				request.setAttribute("categories", categories);
 				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/nouvelleVente.jsp");
 				rd.forward(request, response);
