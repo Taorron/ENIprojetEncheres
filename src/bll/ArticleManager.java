@@ -213,6 +213,7 @@ public class ArticleManager {
 	
 	public void findBuyerAndSetSellPrice(ArticleVendu article) {
 		Utilisateur buyer = null;
+		int initSellPrice = article.getPrixVente();
 		int sellPrice = article.getPrixVente();
 		if(article.getEtatVente() == EtatVente.TERMINER) {
 			
@@ -227,7 +228,17 @@ public class ArticleManager {
 		}
 		
 		article.setAcheteur(buyer);
-		article.setPrixVente(sellPrice);
+		if(initSellPrice != sellPrice) {
+			article.setPrixVente(sellPrice);
+			
+			try {
+				articleDao.update(article);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	public void saveArticle(ArticleVendu article) throws Exception
@@ -316,6 +327,25 @@ public class ArticleManager {
 		}
 		return verif;
 		
+	}
+	
+	public boolean retraitArticle(Utilisateur user, String idArticle) throws DALException {
+		UserManager um = new UserManager();
+		boolean result = false;
+		
+		if(idArticle != null) {
+			if(!idArticle.isEmpty()) {		
+				ArticleVendu article = getArticleById(Integer.parseInt(idArticle), true);
+				
+				if(user.getNoUtilisateur() == article.getVendeur().getNoUtilisateur()) {
+					
+					um.AddCredit(user, article.getPrixVente());
+					
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	
