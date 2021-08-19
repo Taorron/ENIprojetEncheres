@@ -56,7 +56,7 @@ public class CreateUserServlet extends HttpServlet {
 		
 		UserManager userManager = new UserManager();
 		boolean checkInfo=true;
-		
+		String result = null;
 			try {
 				checkInfo = userManager.checkCredentialNewUser(pseudo, name, firstName, email, phone, street, zip, city, pwd, confirmPwd);
 			} catch (DALException e) {
@@ -68,15 +68,19 @@ public class CreateUserServlet extends HttpServlet {
 			{
 				Utilisateur newUser = userManager.createUser(pseudo, name, firstName, email, phone, street, zip, city, pwd);
 				if (newUser != null) {
+					result = "Votre compte à bien été créé";
 					System.out.println("Utilisateur crée id : " + newUser.getNoUtilisateur());
 				} else {
-					System.out.println("Une erreur est survenu à la creation de compte");
+					result = "Une erreur est survenue à la creation de compte";
+					System.out.println(result);
 				}
 			}
 			else
 			{
-				System.out.println("Erreur données non conforme");
+				result = "Une erreur est survenue : Données non conforme";
+				System.out.println(result);
 			}
+			request.setAttribute("result", result);
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/connexion.jsp");
 			rd.forward(request, response);
 	}

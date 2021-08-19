@@ -22,6 +22,16 @@
 		</div>
 	 </c:if>
 	 
+	 <c:if test="${result != null}">
+	 	<div class="alert alert-info alert-dismissible fade show" role="info">
+	 		 ${result}
+	  		<button type="button" class="close" data-dismiss="info" aria-label="Close">
+	   		 <span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	 </c:if>
+	 
+	 
 	<h2 class="text-center mt-5">Connexion</h2>
 	
 	<div class="container">
