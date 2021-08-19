@@ -11,6 +11,9 @@ public interface BidDAO {
 	
 	static final String INSERT_ENCHERE = "INSERT INTO ENCHERES (no_utilisateur,no_article,date_enchere,montant_enchere) VALUES (?,?,?,?)";
 	
+	static final String DELETE_ENCHERE = "DELETE FROM ENCHERES "
+			+ "WHERE no_article = ?";
+	
 	public List<Enchere> select(Integer noUtil, Integer noArticle, Date dateEnchere, Integer montant)
 			throws DALException;
 	
@@ -18,5 +21,5 @@ public interface BidDAO {
 	
 	public void update(Enchere enchere) throws DALException;
 	
-	public void delete(int noUtil, int noArticle) throws DALException;
+	public void delete(int noArticle) throws DALException;
 }

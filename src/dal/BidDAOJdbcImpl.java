@@ -126,8 +126,18 @@ public class BidDAOJdbcImpl implements BidDAO {
 	}
 
 	@Override
-	public void delete(int noUtil, int noArticle) throws DALException {
-		// TODO Auto-generated method stub
+	public void delete(int noArticle) throws DALException {
+		try(Connection connexion = JdbcTools.getConnection();
+				PreparedStatement rqt = connexion.prepareStatement(DELETE_ENCHERE);){
+
+			rqt.setInt(1,noArticle);
+			
+			rqt.executeUpdate();
+			System.out.println("Success delete article id : " + noArticle);
+		} catch (SQLException e) {
+			//propager une exception personnalisée
+			throw new DALException("erreur delete, enchere id : " + noArticle + e.getMessage());
+		}
 		
 	}
 }

@@ -69,4 +69,8 @@ public class BidManager {
 			enchere.setArticleVendu(articleManager.getArticleById(enchere.getArticleVendu().getNoArticle(), false));
 		}
 	}
+	
+	public void delete(int no_article) throws DALException {
+		BidDao.delete(no_article);
+	}
 }
