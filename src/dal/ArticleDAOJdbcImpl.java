@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -174,13 +178,38 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	@Override
 	public void update(ArticleVendu article) throws DALException {
 		
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 		
-		LocalDate dateDebutEnchere = article.getDateDebutEncheres().toInstant()
-			      .atZone(ZoneId.systemDefault())
-			      .toLocalDate();
-		LocalDate dateFinEnchere = article.getDateFinEncheres().toInstant()
-			      .atZone(ZoneId.systemDefault())
-			      .toLocalDate();
+		//Gestion typage date debut
+		String dateDebutformat = formater.format(article.getDateDebutEncheres());
+		Date DateDebut = null;
+		try {
+			DateDebut = new SimpleDateFormat("yyyy-MM-dd").parse(dateDebutformat);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Instant instantDateDebut = DateDebut.toInstant();
+		ZonedDateTime atZoneDateDebut = instantDateDebut.atZone(ZoneId.systemDefault());
+		LocalDate localDateDebut = atZoneDateDebut.toLocalDate();
+		LocalDate dateDebutEnchere = localDateDebut;
+		
+		//Gestion typage date fin
+		String dateFinformat = formater.format(article.getDateFinEncheres());
+		Date DateFin = null;
+		try {
+			DateFin = new SimpleDateFormat("yyyy-MM-dd").parse(dateFinformat);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Instant instantDateFin = DateFin.toInstant();
+		ZonedDateTime atZoneDateFin = instantDateFin.atZone(ZoneId.systemDefault());
+		LocalDate localDateFin = atZoneDateFin.toLocalDate();
+		LocalDate dateFinEnchere = localDateFin;
+		
 		
 		try(Connection connexion = JdbcTools.getConnection();
 				PreparedStatement prpStmt = connexion.prepareStatement(UPDATE_ARTICLE);){
@@ -216,8 +245,18 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
 	@Override
 	public void delete(int noArticle) throws DALException {
-		// TODO Auto-generated method stub
 		
+		try(Connection connexion = JdbcTools.getConnection();
+				PreparedStatement prpStmt = connexion.prepareStatement(DELETE_ARTICLE);){
+			
+			prpStmt.setInt(1, noArticle);
+			
+			prpStmt.executeUpdate();
+			System.out.println("Success delete article id : " + noArticle);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DALException("erreur delete, article id : " + noArticle + e.getMessage());
+		}
 	}
-
 }

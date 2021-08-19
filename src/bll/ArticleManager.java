@@ -204,10 +204,8 @@ public class ArticleManager {
 			articleVendu.setRetrait(withdrawManager.getRetraitByArticleId(no_article));
 			articleVendu.setEnchere((ArrayList<Enchere>)(bidManager.getEncheresByArticle(no_article)));
 			
-			
 			findBuyerAndSetSellPrice(articleVendu);
 			System.out.println("Fin setInfo");
-			
 		}
 	}
 	
@@ -337,18 +335,30 @@ public class ArticleManager {
 		
 	}
 	
-	public boolean retraitArticle(Utilisateur user, String idArticle) throws DALException {
+	public void deleteArticle(int noArticle) throws DALException {
+		articleDao.delete(noArticle);
+	}
+	
+	public boolean retraitArticle(Utilisateur user, String NoArticle) throws DALException {
 		UserManager um = new UserManager();
+		BidManager bm = new BidManager();
+		WithdrawManager wm = new WithdrawManager();
+				
 		boolean result = false;
 		
-		if(idArticle != null) {
-			if(!idArticle.isEmpty()) {		
-				ArticleVendu article = getArticleById(Integer.parseInt(idArticle), true);
+		if(NoArticle != null) {
+			if(!NoArticle.isEmpty()) {	
+				int idArticle = Integer.parseInt(NoArticle);
+				ArticleVendu article = getArticleById(idArticle, true);
 				
 				if(user.getNoUtilisateur() == article.getVendeur().getNoUtilisateur()) {
 					
-					um.AddCredit(user, article.getPrixVente());
-					
+					int creditToAdd = article.getPrixVente(); 
+					wm.delete(idArticle);
+					bm.delete(idArticle);
+					deleteArticle(idArticle);
+					um.AddCredit(user,creditToAdd);
+					result = true;
 				}
 			}
 		}

@@ -4,9 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import bo.ArticleVendu;
-import bo.Category;
-import bo.Retrait;
-import bo.Utilisateur;
+
 
 public interface ArticleDAO {
 	
@@ -20,6 +18,9 @@ public interface ArticleDAO {
 			+ " date_fin_encheres = ?, prix_initial = ?, prix_vente = ?,"
 			+ " no_utilisateur = ?, no_categorie = ?"
 			+ " WHERE no_article = ?";
+	
+	static final String DELETE_ARTICLE = "DELETE FROM ARTICLES_VENDUS "
+			+ "WHERE no_article = ?";
 	
 	public List<ArticleVendu> select(Integer noArticle, String nomArticle, String description,
 			Date dateDebutEncheres, Date dateFinEncheres, Integer miseAPrix, Integer prixVente,
