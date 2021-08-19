@@ -10,11 +10,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>ENI - Enchere</title>
 	</head>
 	<body>
 		<%@include file="import/header.jsp" %>
-		<h2 class="text-center mt-5">Nouvelle vente</h2>
+		<h2 class="text-center mt-5">Affichage d'article</h2>
 		
 		<div class="container">
 			<div class="row">
@@ -79,7 +79,12 @@
 									</c:when>
 									<c:otherwise>
 										<c:if test="${article.getDateFinEncheres().before(date)&&article.getAcheteur()!=null}">
-											<a href="#"><button class="btn btn-primary" type="button">Retrait effectué</button></a>
+											<tr>
+												<td colspan="2">
+													<a href="${pageContext.request.contextPath}/RetraitArticleServlet?idArticle=${article.getNoArticle()}" class="btn btn-primary">Retrait effectué</a>
+												</td>
+											</tr>
+											
 										</c:if>
 									</c:otherwise>
 								</c:choose>
