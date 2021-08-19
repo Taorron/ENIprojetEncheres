@@ -213,15 +213,13 @@ public class ArticleManager {
 		Utilisateur buyer = null;
 		int initSellPrice = article.getPrixVente();
 		int sellPrice = article.getPrixVente();
-		if(article.getEtatVente() == EtatVente.TERMINER) {
-			
-			Date lastDate = null;
-			for(Enchere enchere : article.getEnchere()) {
-				if(lastDate == null || enchere.getDateEnchère().after(lastDate)) {
-					lastDate = enchere.getDateEnchère();
-					buyer = enchere.getUtilisateur();
-					sellPrice = enchere.getMontantEnchere();
-				}
+
+		Date lastDate = null;
+		for(Enchere enchere : article.getEnchere()) {
+			if(lastDate == null || enchere.getDateEnchère().after(lastDate)) {
+				lastDate = enchere.getDateEnchère();
+				buyer = enchere.getUtilisateur();
+				sellPrice = enchere.getMontantEnchere();
 			}
 		}
 		
@@ -236,7 +234,6 @@ public class ArticleManager {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	public void saveArticle(ArticleVendu article) throws Exception
@@ -324,13 +321,18 @@ public class ArticleManager {
 	public boolean ifModif(Utilisateur user, ArticleVendu article)
 	{
 		boolean verif=true;
-		if (user.getNoUtilisateur()!=article.getVendeur().getNoUtilisateur()) 
-		{
-			verif=false;
+		if(user != null) {
+			if (user.getNoUtilisateur()!=article.getVendeur().getNoUtilisateur()) 
+			{
+				verif=false;
+			}
+			if (article.getDateDebutEncheres().before(new Date())) {
+				verif=false;
+			}
+		} else {
+			verif = false;
 		}
-		if (article.getDateDebutEncheres().before(new Date())) {
-			verif=false;
-		}
+		
 		return verif;
 		
 	}

@@ -4,8 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,8 +81,10 @@ public class BidDAOJdbcImpl implements BidDAO {
 			ResultSet rs = rqt.executeQuery();
 			while(rs.next())
 			{
+				Timestamp ts = rs.getTimestamp("date_enchere");
+				Date date=new Date(ts.getTime());  
 				result.add(new Enchere(
-						rs.getDate("date_enchere"),
+						date,
 						rs.getInt("montant_enchere"), 
 						new Utilisateur(rs.getInt("no_utilisateur"),
 								null,null,null,null,null,null,null,null,null,0,false, 
@@ -98,9 +109,8 @@ public class BidDAOJdbcImpl implements BidDAO {
 		
 		Connection cnx = null;
 		
-		LocalDate dateFinEnchere = enchere.getDateEnchère().toInstant()
-			      .atZone(ZoneId.systemDefault())
-			      .toLocalDate();
+		Date dateEnchere = enchere.getDateEnchère();
+		Timestamp ts=new Timestamp(dateEnchere.getTime());  
 		
 		try {
 			cnx = JdbcTools.getConnection();
@@ -108,11 +118,11 @@ public class BidDAOJdbcImpl implements BidDAO {
 			
 			rqt.setInt(1,enchere.getUtilisateur().getNoUtilisateur());
 			rqt.setInt(2, enchere.getArticleVendu().getNoArticle());
-			rqt.setDate(3, java.sql.Date.valueOf(dateFinEnchere));
+			rqt.setTimestamp(3, ts);
 			rqt.setInt(4, enchere.getMontantEnchere());
 			
 			rqt.executeUpdate();
-			
+			System.out.println("insert Bid");
 		} catch (SQLException e) {
 			//propager une exception personnalisée
 			throw new Exception("Problème d'ajout d'un enchere en base. Cause : " + e.getMessage());
