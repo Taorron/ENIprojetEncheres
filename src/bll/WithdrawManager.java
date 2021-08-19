@@ -49,4 +49,8 @@ public class WithdrawManager {
 		
 	}
 	
+	public void delete(int no_article) throws DALException {
+		withdrawDao.delete(no_article); 
+	}
+	
 }

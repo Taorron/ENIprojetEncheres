@@ -9,7 +9,7 @@ public interface WithdrawDAO {
 	static final String SELECT_WITHDRAW = "SELECT * FROM RETRAITS WHERE no_article is not null ";
 	static final String INSERT_WITHDRAW = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) values(?,?,?,?)";
 	static final String UPDATE_WITHDRAW = "UPDATE RETRAITS SET rue = ?, code_postal = ?, ville = ? WHERE no_article = ?";
-	
+	static final String DELETE_WITHDRAW = "DELETE RETRAITS WHERE no_article = ?";
 	
 	
 	

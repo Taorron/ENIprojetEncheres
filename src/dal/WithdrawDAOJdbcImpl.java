@@ -145,7 +145,15 @@ public class WithdrawDAOJdbcImpl implements WithdrawDAO{
 
 	@Override
 	public void delete(int no_retrait) throws DALException {
-		// TODO Auto-generated method stub
+		try(Connection connexion = JdbcTools.getConnection();
+				PreparedStatement prpStmt = connexion.prepareStatement(DELETE_WITHDRAW);){			
+			prpStmt.setInt(1, no_retrait);
+			prpStmt.executeUpdate();
+			System.out.println("Success delete retrait id : " + no_retrait);
+		} catch (SQLException e) {
+			throw new DALException("erreur delete, retrait id : " + no_retrait + e.getMessage());
+			
+		}
 		
 	}
 
