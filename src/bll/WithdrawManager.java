@@ -41,5 +41,12 @@ public class WithdrawManager {
 	{
 		withdrawDao.insert(retrait);
 	}
+
+
+	public void update(Retrait retrait) throws DALException {
+		withdrawDao.update(retrait);
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -12,7 +12,15 @@
 </head>
 <body>
 <%@include file="import/header.jsp" %>
-	<h2 class="text-center mt-5">Nouvelle vente</h2>
+
+	<c:choose>
+			<c:when test="${article!=null}">
+				<h2 class="text-center mt-5">Modifier vente</h2>
+			</c:when>
+			<c:otherwise>
+				<h2 class="text-center mt-5">Nouvelle vente</h2>
+			</c:otherwise>
+	</c:choose>
 		
 		<div class="container">
 			<div class="row">
@@ -20,7 +28,8 @@
 				
 					<c:choose>
 							<c:when test="${article!=null}">
-								<form method="post" action="#">
+								<form method="post" action="${pageContext.request.contextPath}/ModifierVenteServlet">
+								<input type="hidden" name="id" id="id" value="${article.getNoArticle()}">
 							</c:when>
 							<c:otherwise>
 								<form method="post" action="${pageContext.request.contextPath}/EnregistrerNouvelleVenteServlet">

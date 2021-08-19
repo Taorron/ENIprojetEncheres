@@ -248,6 +248,14 @@ public class ArticleManager {
 		article.getRetrait().setArticleVendu(article);
 		withdrawManager.insert(article.getRetrait());
 	}
+	public void modifArticle(ArticleVendu article) throws DALException
+	{
+		articleDao.update(article);
+		WithdrawManager withdrawManager = new WithdrawManager();
+		article.getRetrait().setArticleVendu(article);
+		withdrawManager.update(article.getRetrait());
+		
+	}
 	
 	public ArticleVendu verifArticle(int noArticle, String nomArticle, String description, String dateDebutEncheres, String dateFinEncheres, 
 			String miseAPrix, String categorie, Utilisateur user,Utilisateur acheteur, String rue, String cp, String ville ) throws ParseException 
@@ -309,7 +317,7 @@ public class ArticleManager {
 		}
 		if (value) {
 			
-			article=new ArticleVendu(0, nomArticle, description, dateDebut, dateFin, miseAPrix1, miseAPrix1, 
+			article=new ArticleVendu(noArticle, nomArticle, description, dateDebut, dateFin, miseAPrix1, miseAPrix1, 
 					new Category(categ, null), new Retrait(rue, cp, ville), user,acheteur);
 		}
 		
