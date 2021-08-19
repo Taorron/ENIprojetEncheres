@@ -105,7 +105,7 @@ public class WithdrawDAOJdbcImpl implements WithdrawDAO{
 //			System.out.println("success insert Article new id : "+result.getNoArticle() );			
 			
 		}catch (SQLException e) {
-			
+			throw new DALException("erreur dans select withdraw : " + e.toString());
 			//propager une exception personnalisée
 			
 		}
@@ -118,6 +118,28 @@ public class WithdrawDAOJdbcImpl implements WithdrawDAO{
 	@Override
 	public void update(Retrait retrait) throws DALException {
 		// TODO Auto-generated method stub
+		Connection cnx = null;
+		
+		try {
+			cnx = JdbcTools.getConnection();
+			PreparedStatement rqt = cnx.prepareStatement(UPDATE_WITHDRAW);
+			
+			rqt.setString(1, retrait.getRue());
+			rqt.setString(2, retrait.getCodePostal());
+			rqt.setString(3, retrait.getVille());
+			rqt.setInt(4, retrait.getArticleVendu().getNoArticle());
+			
+			
+			rqt.executeUpdate();
+			
+			
+//			System.out.println("success insert Article new id : "+result.getNoArticle() );			
+			
+		}catch (SQLException e) {
+			throw new DALException("erreur dans select withdraw : " + e.toString());
+			//propager une exception personnalisée
+			
+		}
 		
 	}
 
