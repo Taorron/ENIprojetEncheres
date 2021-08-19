@@ -78,6 +78,7 @@ public class ConnexionUtilisateurServlet extends HttpServlet {
 				response.addCookie(seSouvenirChecked);
 				
 				HttpSession session=request.getSession();
+				session.setMaxInactiveInterval(300);
 				session.setAttribute("user", utilisateur);
 
 //				CategoryManager categoryManager = new CategoryManager();

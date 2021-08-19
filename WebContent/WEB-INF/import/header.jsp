@@ -15,6 +15,9 @@
 
 	<c:choose>
 	    <c:when test="${user!=null}">
+	       	<li class="nav-item">
+	       		<div class="nav-link" >Crédit de ${user.getPseudo()} : ${user.getCredit() }</div>
+	       	</li>
 	    	<li class="nav-item">
 	       		<a class="nav-link" href="#">Enchères</a>
 	       	</li>
